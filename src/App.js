@@ -1,25 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import './normalize.css'
+import {useState} from "react";
+import Pie from "./Components/Pie/Pie";
+import FormCategory from "./Components/FormAdd/FormCategory";
+import FormSpending from "./Components/FormAdd/FormSpending";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [spendings, setSpendings] = useState([
+        {
+            category: "products",
+            money: 100,
+            color: "#ff3c3c"
+        },
+        {
+            category: "movies",
+            money: 340,
+            color: "#3cd2ff"
+        },
+        {
+            category: "fastFood",
+            money: 180,
+            color: "#ff3cbb"
+        },
+        {
+            category: "transport",
+            money: 1000,
+            color: "#84ff3c"
+        }
+    ])
+
+
+
+
+    return (
+        <div className="App">
+            <Pie spendings={spendings}/>
+
+            <FormSpending setSpendings={setSpendings} spendings={spendings}/>
+
+            <hr/>
+
+            <FormCategory spendings={spendings} setSpendings={setSpendings}/>
+
+        </div>
+    );
 }
 
 export default App;
