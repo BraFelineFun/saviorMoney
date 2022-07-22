@@ -34,13 +34,13 @@ function App() {
 
     return (
         <div className="App">
-            <Pie spendings={spendings}/>
+            <Pie />
 
             <FormSpending setSpendings={setSpendings} spendings={spendings}/>
 
             <hr/>
 
-            <FormCategory spendings={spendings} setSpendings={setSpendings}/>
+            <FormCategory />
 
         </div>
     );

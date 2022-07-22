@@ -1,7 +1,14 @@
 import React from 'react';
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {addCategory} from "../../Store/Slices/SpendingsSlice";
 
-const FormCategory = ({spendings, setSpendings}) => {
+const FormCategory = () => {
+
+    const [color, setColor] = useState(getRandomColor(toString()));
+    const [category, setCategory] = useState("");
+
+    const dispatch = useDispatch();
 
     function getRandomColor() {
         let letters = '0123456789ABCDEF';
@@ -12,8 +19,9 @@ const FormCategory = ({spendings, setSpendings}) => {
         return color;
     }
 
-    const [color, setColor] = useState(getRandomColor(toString()));
-    const [category, setCategory] = useState("");
+    function addNewCategory(){
+        dispatch(addCategory({category: category, color: color, money: 0}))
+    }
 
     return (
         <div className="addCategory">
@@ -33,10 +41,7 @@ const FormCategory = ({spendings, setSpendings}) => {
                     value={color}
                     type="color"/>
             </div>
-            <button
-                onClick={() =>
-                    setSpendings([...spendings, {category: category, color: color, money: 0}])}
-            >
+            <button onClick={addNewCategory}>
                 Добавить
             </button>
         </div>

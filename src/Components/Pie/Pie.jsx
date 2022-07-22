@@ -1,12 +1,14 @@
 import React, {useMemo, useState} from 'react';
 import cl from "./Pie.module.css"
 import PieLabel from "./PieLabel";
+import {useSelector} from "react-redux";
 
-const Pie = React.memo(({spendings}) => {
+const Pie = React.memo(() => {
 
     const [hoveredValue, setHoveredValue] = useState({category: "", money: ""});
 
-
+    const spendings = useSelector(state => state.spendings)
+    console.log(spendings)
 
     const styles = useMemo(() => {
         let length = spendings.length;

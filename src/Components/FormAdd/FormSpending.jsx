@@ -1,10 +1,15 @@
 import React from 'react';
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {addExpense} from "../../Store/Slices/SpendingsSlice";
 
-const FormSpending = ({spendings, setSpendings}) => {
+const FormSpending = () => {
 
     const [spentSum, setSpentSum] = useState("0");
     const [chosenCategory, setChosenCategory] = useState("");
+
+    const spendings = useSelector(state => state.spendings)
+    const dispatch = useDispatch();
 
     function checkNumberInput(value){
         if ((/\d*/g).test(value))
@@ -12,12 +17,8 @@ const FormSpending = ({spendings, setSpendings}) => {
     }
 
     function addSpendings(){
-        const index = spendings.findIndex(obj => obj.category === chosenCategory);
-        const toUpdateCategory = spendings[index];
-        toUpdateCategory.money += Number(spentSum);
-        const toUpdateSpendings = [...spendings];
-        toUpdateSpendings[index] = toUpdateCategory;
-        setSpendings(toUpdateSpendings);
+        if (chosenCategory === "") return;
+        dispatch(addExpense({spentSum, chosenCategory}))
     }
 
     return (
