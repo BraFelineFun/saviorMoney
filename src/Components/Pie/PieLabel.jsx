@@ -6,7 +6,7 @@ const PieLabel = ({hoveredValue}) => {
         <div className={cl.labelPlaceholder}>
             <div className={cl.label}>
                 <label>{hoveredValue.category}</label>
-                <label>{hoveredValue.money}</label>
+                <label>{hoveredValue.summaryMoney}</label>
             </div>
         </div>
     );

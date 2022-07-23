@@ -4,43 +4,32 @@ import {useState} from "react";
 import Pie from "./Components/Pie/Pie";
 import FormCategory from "./Components/FormAdd/FormCategory";
 import FormSpending from "./Components/FormAdd/FormSpending";
+import Category from "./Components/Category/Category";
 
 function App() {
-    const [spendings, setSpendings] = useState([
-        {
-            category: "products",
-            money: 100,
-            color: "#ff3c3c"
-        },
-        {
-            category: "movies",
-            money: 340,
-            color: "#3cd2ff"
-        },
-        {
-            category: "fastFood",
-            money: 180,
-            color: "#ff3cbb"
-        },
-        {
-            category: "transport",
-            money: 1000,
-            color: "#84ff3c"
-        }
-    ])
-
-
 
 
     return (
         <div className="App">
-            <Pie />
+            <div className="container">
+                <Category/>
+            </div>
 
-            <FormSpending setSpendings={setSpendings} spendings={spendings}/>
+            <div className="container">
+                <Pie />
+            </div>
 
-            <hr/>
+            <div className="container">
+                <FormSpending/>
+            </div>
 
-            <FormCategory />
+
+
+
+
+            {/*<hr/>*/}
+
+
 
         </div>
     );

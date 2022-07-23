@@ -1,34 +1,24 @@
-@keyframes render {
-    0% {
-        stroke-dasharray: 0 100;
-    }
-}
-
 html,
 body {
+    font-family: 'Roboto', sans-serif;
+
     margin: 0;
     padding: 0;
 
-    background-color: #eedcf2;
+    background-color: #E7E7E7;
 }
 
-.canvas {
+.App{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 800px;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
-
-.legend {
-    max-width: 250px;
-    margin-left: 30px;
+.container{
+    width: 500px;
+    border: 2px solid black;
 }
-
-.title {
-    font-family: "Verdana", sans-serif;
-    font-size: 18px;
-    line-height: 21px;
-    color: #591d48;
+.wrapperPadding{
+    padding: 20px 20px;
 }
 
 .caption-list {
@@ -71,30 +61,21 @@ body {
     background-color: #86cfa3;
 }
 
-.caption-item:nth-child(2)::before {
-    background-color: #a2c6e0;
-}
-
-.caption-item:nth-child(3)::before {
-    background-color: #ffc7ec;
-}
-
-.caption-item:nth-child(4)::before {
-    background-color: #f8faa0;
-}
-
-.caption-item:nth-child(5)::before {
-    background-color: #adffd8;
-}
-
-.caption-item:nth-child(6)::before {
-    background-color: #f2c48f;
-}
-
-.caption-item:nth-child(7)::before {
-    background-color: #e3bfe2;
-}
-
 .--active{
     background-color: #9393f1;
+}
+
+.expandList-enter {
+    opacity: 0;
+}
+.expandList-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+.expandList-exit {
+    opacity: 1;
+}
+.expandList-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
 }

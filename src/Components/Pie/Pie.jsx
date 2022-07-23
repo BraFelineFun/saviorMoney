@@ -5,22 +5,20 @@ import {useSelector} from "react-redux";
 
 const Pie = React.memo(() => {
 
-    const [hoveredValue, setHoveredValue] = useState({category: "", money: ""});
+    const [hoveredValue, setHoveredValue] = useState({category: "", summaryMoney: ""});
 
-    const spendings = useSelector(state => state.spendings)
-    console.log(spendings)
+    const spendings = useSelector(state => state.spendings);
 
     const styles = useMemo(() => {
         let length = spendings.length;
         const styles = [];
         if (length){
 
-            const sum = spendings.reduce((sum, {money}) => sum + money, 0)
+            const sum = spendings.reduce((sum, {summaryMoney}) => sum + summaryMoney, 0)
 
             let prevSpentPercent = 0;
             for(let i = 0; i < length; i++){
-
-                let spentPercent = spendings[i].money/sum* 100;
+                let spentPercent = spendings[i].summaryMoney/sum* 100;
 
                 let style = {
                     stroke: `${spendings[i].color}`,
@@ -31,6 +29,7 @@ const Pie = React.memo(() => {
                 prevSpentPercent += spentPercent;
             }
         }
+        //====Structure : ====
         // stroke: #a2c6e0;
         // stroke-dasharray: 11 100;
         // stroke-dashoffset: -8;
@@ -56,7 +55,7 @@ const Pie = React.memo(() => {
                                 cx="50%"
                                 cy="50%"
                                 onMouseEnter={() => setHoveredValue(spending)}
-                                onMouseLeave={() => setHoveredValue({category: "", money: ""})}
+                                onMouseLeave={() => setHoveredValue({category: "", summaryMoney: ""})}
                             >
                             </circle>
                         )}

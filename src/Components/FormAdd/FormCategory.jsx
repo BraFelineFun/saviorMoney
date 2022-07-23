@@ -20,7 +20,9 @@ const FormCategory = () => {
     }
 
     function addNewCategory(){
-        dispatch(addCategory({category: category, color: color, money: 0}))
+        dispatch(addCategory(
+            {category: category, color: color, summaryMoney: 0, expenses: []}
+        ))
     }
 
     return (

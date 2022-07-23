@@ -1,25 +1,42 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+
 const initialState = [
     {
         category: "products",
-        money: 100,
-        color: "#ff3c3c"
+        summaryMoney: 30,
+        color: "#ff3c3c",
+        expenses:[
+            {description: "dsfs", money: 10},
+            {description: "fdsa", money: 20}
+        ]
     },
     {
         category: "movies",
-        money: 340,
-        color: "#3cd2ff"
+        summaryMoney: 30,
+        color: "#3cd2ff",
+        expenses:[
+            {description: "dsfs", money: 10},
+            {description: "fdsa", money: 20}
+        ]
     },
     {
         category: "fastFood",
-        money: 180,
-        color: "#ff3cbb"
+        summaryMoney: 30,
+        color: "#ff3cbb",
+        expenses:[
+            {description: "dsfs", money: 10},
+            {description: "fdsa", money: 20}
+        ]
     },
     {
         category: "transport",
-        money: 1000,
-        color: "#84ff3c"
+        summaryMoney: 30,
+        color: "#84ff3c",
+        expenses:[
+            {description: "dsfs", money: 10},
+            {description: "fdsa", money: 20}
+        ]
     }
 ]
 
@@ -32,7 +49,8 @@ export const spendingSlice = createSlice({
         },
         addExpense: (state, action) =>{
             const index = state.findIndex(obj => obj.category === action.payload.chosenCategory);
-            state[index].money += Number(action.payload.spentSum);
+            state[index].summaryMoney += action.payload.spentSumNum;
+            state[index].expenses.push({description: action.payload.description, money: action.payload.spentSumNum})
         }
     }
 
