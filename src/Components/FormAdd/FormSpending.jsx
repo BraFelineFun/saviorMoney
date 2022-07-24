@@ -23,6 +23,7 @@ const FormSpending = () => {
         if (chosenCategory === "") return;
         const spentSumNum = Number(spentSum);
         dispatch(addExpense({spentSumNum, chosenCategory, description}))
+
     }
 
     return (

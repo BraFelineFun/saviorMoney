@@ -2,8 +2,9 @@ import React from 'react';
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {addCategory} from "../../Store/Slices/SpendingsSlice";
+import cl from "./formCategory.module.css"
 
-const FormCategory = () => {
+const FormCategory = ({callback}) => {
 
     const [color, setColor] = useState(getRandomColor(toString()));
     const [category, setCategory] = useState("");
@@ -23,10 +24,12 @@ const FormCategory = () => {
         dispatch(addCategory(
             {category: category, color: color, summaryMoney: 0, expenses: []}
         ))
+
+        callback();
     }
 
     return (
-        <div className="addCategory">
+        <div className={cl.formAddCategory}>
             <div className="inputField">
                 <label htmlFor="category">Введите новую категорию трат:</label>
                 <input

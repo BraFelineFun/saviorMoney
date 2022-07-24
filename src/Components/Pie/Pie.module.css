@@ -29,6 +29,7 @@
     flex-direction: column;
 }
 .label label{
+    text-align: center;
     margin: 0;
 }
 

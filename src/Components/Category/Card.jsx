@@ -4,14 +4,17 @@ import {useSelector} from "react-redux";
 const Card = ({sort}) => {
 
     const spendingsState = useSelector(state => state.spendings)
-    console.log(spendingsState.sort())
+
     const spendings = useMemo(() =>{
         if (!sort) return spendingsState;
 
         if (sort === "summaryMoney")
-            return spendingsState.sort((a,b) => a.summaryMoney < b.summaryMoney)
+            return [...spendingsState].sort((a,b) => (b.summaryMoney - a.summaryMoney))
 
-    }, [spendingsState])
+        if (sort === "categoryName")
+            return[...spendingsState].sort((a,b) => (a.category.localeCompare(b.category)))
+
+    }, [spendingsState, sort])
 
     return (
         <>
