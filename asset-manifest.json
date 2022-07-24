@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/saviourMoney/static/css/main.5d32adbe.css",
+    "main.js": "/saviourMoney/static/js/main.a5973948.js",
+    "index.html": "/saviourMoney/index.html",
+    "main.5d32adbe.css.map": "/saviourMoney/static/css/main.5d32adbe.css.map",
+    "main.a5973948.js.map": "/saviourMoney/static/js/main.a5973948.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5d32adbe.css",
+    "static/js/main.a5973948.js"
+  ]
+}
