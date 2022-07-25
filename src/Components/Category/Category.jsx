@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './category.css'
-import Card from "./Card";
+import Card from "../Card/Card";
 import RoundButton from "../UI Components/RoundButton/RoundButton";
 import FormCategory from "../FormAdd/FormCategory";
 
@@ -9,12 +9,11 @@ const Category = () => {
     const [sort, setSort] = useState("");
     const [showForm, setShowForm] = useState(false);
 
+    const overflowStyle = {overflowY: showForm? "hidden": "auto"}
+
+
     function toggleShowForm(){
         setShowForm(!showForm);
-    }
-
-    function sortF(sort){
-        setSort(sort);
     }
 
     return (
@@ -29,7 +28,7 @@ const Category = () => {
                 </div>
                 <div className="select">
                     <select onChange={(e)=>
-                        sortF(e.target.value)}
+                        setSort(e.target.value)}
                         value={sort}
                         name="sort"
                     >
@@ -46,9 +45,7 @@ const Category = () => {
                 </div>
             </div>
 
-            <main className="wrapperPadding">
-                <Card sort={sort}/>
-                <Card sort={sort}/>
+            <main style={overflowStyle} className="wrapperPadding">
                 <Card sort={sort}/>
                 {showForm &&<div className="formAddCategory">
                      <FormCategory callback={toggleShowForm}/>

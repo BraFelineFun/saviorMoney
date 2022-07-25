@@ -7,8 +7,8 @@ const initialState = [
         summaryMoney: 30,
         color: "#ff3c3c",
         expenses:[
-            {description: "dsfs", money: 10},
-            {description: "fdsa", money: 20}
+            {description: "dsfs", money: 10, date: new Date(2008, 0, 1, 0, 0, 35).toString()},
+            {description: "fdsa", money: 20, date: new Date(2011, 0, 1, 0, 0, 0).toString()}
         ]
     },
     {
@@ -16,8 +16,8 @@ const initialState = [
         summaryMoney: 30,
         color: "#3cd2ff",
         expenses:[
-            {description: "dsfs", money: 10},
-            {description: "fdsa", money: 20}
+            {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 0, 23, 0).toString()},
+            {description: "fdsa", money: 20, date: new Date(2011, 0, 1, 0, 0, 0).toString()}
         ]
     },
     {
@@ -25,8 +25,8 @@ const initialState = [
         summaryMoney: 30,
         color: "#ff3cbb",
         expenses:[
-            {description: "dsfs", money: 10},
-            {description: "fdsa", money: 20}
+            {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 0, 5, 0).toString()},
+            {description: "fdsa", money: 20, date: new Date(2011, 0, 5, 0, 0, 0).toString()}
         ]
     },
     {
@@ -34,8 +34,8 @@ const initialState = [
         summaryMoney: 30,
         color: "#84ff3c",
         expenses:[
-            {description: "dsfs", money: 10},
-            {description: "fdsa", money: 20}
+            {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 1, 0, 0).toString()},
+            {description: "fdsa", money: 20, date: new Date(2011, 1, 1, 0, 0, 0).toString()}
         ]
     }
 ]
@@ -50,7 +50,7 @@ export const spendingSlice = createSlice({
         addExpense: (state, action) =>{
             const index = state.findIndex(obj => obj.category === action.payload.chosenCategory);
             state[index].summaryMoney += action.payload.spentSumNum;
-            state[index].expenses.push({description: action.payload.description, money: action.payload.spentSumNum})
+            state[index].expenses.push({description: action.payload.description, money: action.payload.spentSumNum, date: new Date().toString()})
         }
     }
 

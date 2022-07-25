@@ -21,6 +21,10 @@ const FormCategory = ({callback}) => {
     }
 
     function addNewCategory(){
+        if (category === "") {
+            alert("Введите название категории");
+            return
+        }
         dispatch(addCategory(
             {category: category, color: color, summaryMoney: 0, expenses: []}
         ))
@@ -29,7 +33,7 @@ const FormCategory = ({callback}) => {
     }
 
     return (
-        <div className={cl.formAddCategory}>
+        <div className={cl.formAddCategory + " wrapperPadding"}>
             <div className="inputField">
                 <label htmlFor="category">Введите новую категорию трат:</label>
                 <input
