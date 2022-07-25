@@ -1,14 +1,16 @@
 import React, {useMemo, useState} from 'react';
-import {useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
 import cl from "./card.module.css"
-import {CSSTransition} from "react-transition-group";
-import CardDetail from "./CardDetail";
+import CardDetail from "./CardDetail/CardDetail";
+import MoreButton from "../UI Components/MoreButton/MoreButton";
+import {removeCategory} from "../../Store/Slices/SpendingsSlice";
+import cashNumberToString from "../../Helpers/cashNumberToString";
 
 const Card = ({sort}) => {
 
     const spendingsState = useSelector(state => state.spendings)
-    const [isExpandCard,setIsExpandCard] = useState(false);
+    const [expandCardCategory,setExpandCardCategory] = useState([]);
+    const dispatch = useDispatch();
 
     const spendings = useMemo(() =>{
         if (!sort) return spendingsState;
@@ -21,39 +23,65 @@ const Card = ({sort}) => {
 
     }, [spendingsState, sort])
 
+    function expandCardSetter(category){
+        if(!expandCardCategory.includes(category))
+            setExpandCardCategory([...expandCardCategory, category]);
+        else
+            setExpandCardCategory((prev) =>
+                prev.filter((thisCategory) => category !== thisCategory
+            ))
+    }
+
+
+    function removeCategoryContext(category){
+        return function () {
+            dispatch(removeCategory({category}))
+        }
+    }
+
     return (
         <>
             { !spendings.length?
                 <h3>Пока что нет ни одной категории</h3>
                 :
                 spendings.map((spending) =>{
+                    let isIncluded = expandCardCategory.includes(spending.category);
                     let color = {backgroundColor: spending.color};
+
                     return (<div
-                            onClick={() => setIsExpandCard(!isExpandCard)}
-                            key={spending.category}
-                            style={color}
-                            className={cl.cardSpending + " wrapperPadding"}
-                        >
+                        onClick={() => expandCardSetter(spending.category)}
+                        key={spending.category}
+                        style={color}
+                        className={cl.cardSpending + " wrapperPadding"}
+                    >
                         <div className={cl.card_main}>
-                            <div className={cl.card_properties}>
+                            <div
+                                className={isIncluded?
+                                    [cl.card_properties, cl.expendedCard].join(" "):
+                                    cl.card_properties}
+                            >
 
                                 <div className={cl.card_name}>
                                     {spending.category}
                                 </div>
                                 <div className={cl.card_spentSum}>
-                                    {spending.summaryMoney} RUB
+                                    <b>
+                                        <div className="">RUB</div>
+                                        <div className="moneyDisplay">{cashNumberToString(spending.summaryMoney)}</div>
+                                    </b>
+
                                 </div>
                             </div>
                             <div className={cl.card_more}>
-                                <span className={cl.circle}></span>
-                                <span className={cl.circle}></span>
-                                <span className={cl.circle}></span>
+                                <MoreButton
+                                    removeCategory={removeCategoryContext(spending.category)}
+                                />
                             </div>
                         </div>
-                        <CSSTransition in={isExpandCard} timeout={200} classNames="expandList" unmountOnExit>
-                            <CardDetail spending={spending}/>
-                        </CSSTransition>
-
+                            <CardDetail
+                                isExpandCard={isIncluded}
+                                spending={spending}
+                            />
                     </div>)
                 })
             }

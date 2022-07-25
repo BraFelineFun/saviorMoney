@@ -1,0 +1,65 @@
+.moreButton{
+    position: relative;
+    width: 100%;
+    min-width: 24px;
+    min-height: 6px;
+}
+.circleGroup{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.circle{
+    display: block;
+    width: 25%;
+    aspect-ratio: 1/1;
+    min-width: 6px;
+    min-height: 6px;
+
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: .3s ease-in-out;
+}
+.circle.activeMenuCircle:nth-child(1){
+    transform: translateX(115%);
+}
+.circle.activeMenuCircle:nth-child(3){
+    transform: translateX(-115%);
+}
+
+.dropDownMenu{
+    position: absolute;
+    left: -30%;
+    z-index: 10;
+    width: 180px;
+    padding: 15px 15px;
+    margin-top: 5px;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 0 20px 30px rgba(0,0,0,.2);
+    box-sizing: border-box;
+    
+    visibility: hidden;
+    opacity: 0;
+    
+    transform: translate(-50%, 20px);
+    transition: .3s ease-in-out;
+}
+.activeMenu{
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+.menuItem{
+    display: flex;
+    justify-content: space-between;
+}
+.menuItem_icon img{
+    height: 20px;
+    width: 20px;
+}
+.menuItem:hover{
+    background-color: #e0e0e0;
+}

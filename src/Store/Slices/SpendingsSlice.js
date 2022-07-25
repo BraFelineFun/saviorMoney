@@ -51,9 +51,20 @@ export const spendingSlice = createSlice({
             const index = state.findIndex(obj => obj.category === action.payload.chosenCategory);
             state[index].summaryMoney += action.payload.spentSumNum;
             state[index].expenses.push({description: action.payload.description, money: action.payload.spentSumNum, date: new Date().toString()})
+        },
+        removeCategory: (state, action) =>{
+            return state.filter((spending) => spending.category !== action.payload.category)
+        },
+        removeExpanse: (state, action) =>{
+            const index = state.findIndex(obj => obj.category === action.payload.category);
+            const expensesCopy = state[index].expenses;
+            const filteredCopy = expensesCopy.filter((expense) => +(new Date(expense.date)) !== action.payload.key)
+
+            state[index].expenses = filteredCopy;
         }
+
     }
 
 })
-export const {addCategory, addExpense} = spendingSlice.actions;
+export const {addCategory, addExpense, removeCategory, removeExpanse} = spendingSlice.actions;
 export default spendingSlice.reducer;

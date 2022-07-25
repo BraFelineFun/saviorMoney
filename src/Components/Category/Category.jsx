@@ -46,10 +46,14 @@ const Category = () => {
             </div>
 
             <main style={overflowStyle} className="wrapperPadding">
-                <Card sort={sort}/>
-                {showForm &&<div className="formAddCategory">
+
+                {showForm?
+                    <div className="formAddCategory">
                      <FormCategory callback={toggleShowForm}/>
-                </div>}
+                    </div>
+                    :
+                    <Card  sort={sort}/>
+                }
             </main>
 
         </div>
