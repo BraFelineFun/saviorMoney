@@ -5,6 +5,7 @@ import {addCategory, editCategory} from "../../Store/Slices/SpendingsSlice";
 import cl from "./formCategory.module.css"
 import getRandomColor from "../../Helpers/getRandomColor";
 import {EditCategoryContext} from "../Category/Category";
+import refresh from '../../Resources/img/refresh.png'
 
 const FormCategory = ({callback}) => {
     const [toEditCategory, setToEditCategory] = useContext(EditCategoryContext);
@@ -46,15 +47,15 @@ const FormCategory = ({callback}) => {
 
     return (
         <div className={cl.formAddCategory + " wrapperPadding"}>
-            <div className="inputField">
-                <label htmlFor="category">Введите новую категорию трат:</label>
+            <div className={cl.inputField}>
+                <label htmlFor="category">Введите категорию трат:</label>
                 <input
                     id="category"
                     onChange={(e) => setCategory(e.target.value)}
                     value={category}
                     type="text"/>
             </div>
-            <div className="inputField">
+            <div className={cl.inputField}>
                 <label htmlFor="color">Выберите цвет:</label>
                 <input
                     id="color"
@@ -62,12 +63,15 @@ const FormCategory = ({callback}) => {
                     value={color}
                     type="color"/>
 
-                {/*TODO: Добавить иконку вместо кнопки*/}
-                <button onClick={() => setColor(getRandomColor())}>
-                    Новый цвет
-                </button>
+                <img onClick={() => setColor(getRandomColor())}
+                    src={refresh}
+                    alt="refresh color"
+                />
             </div>
-            <button onClick={categoryChooseAction}>
+            <button
+
+                onClick={categoryChooseAction}
+            >
                 Добавить
             </button>
         </div>

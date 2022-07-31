@@ -4,6 +4,7 @@ import Card from "../Card/Card";
 import RoundButton from "../UI Components/RoundButton/RoundButton";
 import FormCategory from "../FormAdd/FormCategory";
 import useToggle from "../../Hooks/useToggle";
+import {CSSTransition, SwitchTransition} from "react-transition-group";
 
 export const EditCategoryContext = createContext(null);
 
@@ -11,9 +12,7 @@ const Category = () => {
 
     const [sortField, setSortField] = useState("");
     const [isShowForm, toggleShowForm] = useToggle(false);
-
     const [editCategory, setEditCategory] = useState(null);
-
 
     return (
         <div className="card">
@@ -45,17 +44,22 @@ const Category = () => {
             </div>
 
             <EditCategoryContext.Provider value={[editCategory, setEditCategory]}>
-                <main  className="wrapperPadding">
+                <main  className="wrapperPadding category_main">
 
-
+                    <SwitchTransition>
+                        <CSSTransition
+                            key={isShowForm || editCategory !== null} timeout={200} classNames="fade">
                         {isShowForm || editCategory !== null?
                             <div className="formAddCategory">
                                 <FormCategory callback={toggleShowForm}/>
                             </div>
                             :
-                            <Card  sortField={sortField}/>
+                            <div>
+                                <Card  sortField={sortField}/>
+                            </div>
                         }
-
+                        </CSSTransition>
+                    </SwitchTransition>
                 </main>
             </EditCategoryContext.Provider>
 

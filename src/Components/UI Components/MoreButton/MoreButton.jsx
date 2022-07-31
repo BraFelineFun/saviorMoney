@@ -3,7 +3,7 @@ import cl from "./moreButton.module.css"
 import editImg from "../../../Resources/img/edit.png"
 import deleteImg from "../../../Resources/img/delete.png"
 
-const MoreButton = ({removeCategory, edit}) => {
+const MoreButton = ({removeCallback, editCallback}) => {
 
     const [isMenu, setIsMenu] = useState(false);
 
@@ -21,7 +21,11 @@ const MoreButton = ({removeCategory, edit}) => {
     }
     function remove(e){
         e.stopPropagation();
-        removeCategory()
+        removeCallback()
+    }
+    function edit(e){
+        e.stopPropagation();
+        editCallback();
     }
 
 
