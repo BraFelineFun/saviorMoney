@@ -3,13 +3,15 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addExpense} from "../../Store/Slices/SpendingsSlice";
 import {CSSTransition} from "react-transition-group";
+import useToggle from "../../Hooks/useToggle";
 
 const FormSpending = () => {
 
     const [spentSum, setSpentSum] = useState("0");
     const [chosenCategory, setChosenCategory] = useState("");
     const [description, setDescription] = useState("");
-    const [expandList, setExpandList] = useState(false)
+
+    const [expandList, toggleExpandList] = useToggle(false);
 
     const spendings = useSelector(state => state.spendings)
     const dispatch = useDispatch();
@@ -26,11 +28,12 @@ const FormSpending = () => {
 
     }
 
+
     return (
         <div className="addSpendings">
             <div className="categoryList">
                 <div className="categoryListTitle"
-                     onClick={() => setExpandList(!expandList)}
+                     onClick={toggleExpandList}
                 >
                     Категории:
                 </div>

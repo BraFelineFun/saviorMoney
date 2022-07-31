@@ -38,3 +38,8 @@
     min-width: 40px;
     margin-left: 15px;
 }
+
+.empty {
+    height: 80%;
+    width: 100%;
+}

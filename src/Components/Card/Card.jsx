@@ -1,27 +1,22 @@
-import React, {useMemo, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import cl from "./card.module.css"
 import CardDetail from "./CardDetail/CardDetail";
 import MoreButton from "../UI Components/MoreButton/MoreButton";
 import {removeCategory} from "../../Store/Slices/SpendingsSlice";
 import cashNumberToString from "../../Helpers/cashNumberToString";
+import useSort from "../../Hooks/useSort";
+import Empty from "../UI Components/Empty/Empty";
+import {EditCategoryContext} from "../Category/Category";
 
-const Card = ({sort}) => {
+const Card = ({sortField}) => {
 
-    const spendingsState = useSelector(state => state.spendings)
+    const spendingsState = useSelector(state => state.spendings);
     const [expandCardCategory,setExpandCardCategory] = useState([]);
     const dispatch = useDispatch();
 
-    const spendings = useMemo(() =>{
-        if (!sort) return spendingsState;
-
-        if (sort === "summaryMoney")
-            return [...spendingsState].sort((a,b) => (b.summaryMoney - a.summaryMoney))
-
-        if (sort === "categoryName")
-            return[...spendingsState].sort((a,b) => (a.category.localeCompare(b.category)))
-
-    }, [spendingsState, sort])
+    const spendings = useSort(sortField, spendingsState);
+    const [_, editCategory] =useContext(EditCategoryContext);
 
     function expandCardSetter(category){
         if(!expandCardCategory.includes(category))
@@ -32,19 +27,27 @@ const Card = ({sort}) => {
             ))
     }
 
-
     function removeCategoryContext(category){
         return function () {
             dispatch(removeCategory({category}))
+        }
+    }
+    function toEditCategoryContext(spending){
+        return function (){
+            editCategory({category: spending.category, color: spending.color})
         }
     }
 
     return (
         <>
             { !spendings.length?
-                <h3>Пока что нет ни одной категории</h3>
+                <div className={cl.empty}>
+                    <Empty emptyText={"Пока что нет ни одной категории"}/>
+                </div>
+
                 :
                 spendings.map((spending) =>{
+
                     let isIncluded = expandCardCategory.includes(spending.category);
                     let color = {backgroundColor: spending.color};
 
@@ -74,15 +77,17 @@ const Card = ({sort}) => {
                             </div>
                             <div className={cl.card_more}>
                                 <MoreButton
+                                    edit={toEditCategoryContext(spending)}
                                     removeCategory={removeCategoryContext(spending.category)}
                                 />
                             </div>
+                            </div>
+                                <CardDetail
+                                    isExpandCard={isIncluded}
+                                    spending={spending}
+                                />
                         </div>
-                            <CardDetail
-                                isExpandCard={isIncluded}
-                                spending={spending}
-                            />
-                    </div>)
+                    )
                 })
             }
         </>

@@ -10,12 +10,8 @@ import {removeExpanse} from "../../../Store/Slices/SpendingsSlice";
 
 
 const CardDetail = ({spending, isExpandCard}) => {
+
     const dispatch = useDispatch();
-
-    function doSomething (e){
-        e.stopPropagation()
-    }
-
     function deleteExpense(category, key){
         dispatch(removeExpanse({category, key}))
     }
@@ -29,42 +25,49 @@ const CardDetail = ({spending, isExpandCard}) => {
             unmountOnExit
         >
             <div className={cl.card_expand}>
+                {!spending.expenses.length?
+                    <div className={cl.card_detailItem}>
+                        <h3>Пока что нет трат в этой категории</h3>
+                    </div>
+                    :
+                    spending.expenses.map((expense) =>{
+                            const time = dateToString(expense.date);
+                            const key = +(new Date(expense.date));
 
-                {spending.expenses.map((expense) =>{
-                    const time = dateToString(expense.date);
-                    const key = +(new Date(expense.date));
-                    return(
-                        <div
-                            onClick={(e) => e.stopPropagation()}
-                            className={cl.card_detailItem}
-                            key={key}
-                        >
-                            <div className={cl.item}>
-                                <div className={cl.item_holder}>
-                                    <div className={cl.item_description}>
-                                        <div>{expense.description}</div>
-                                        <div className={cl.time}>{[time[0], time[1]].join(" ")}</div>
-                                    </div>
-                                    <div className={cl.item_money}>
-                                        <b>
-                                            RUB
-                                            <div className="moneyDisplay">
-                                                {cashNumberToString(expense.money)}
-                                            </div>
-                                        </b>
-                                    </div>
-                                </div>
-                                <div onClick={() => deleteExpense(spending.category, key)}
-                                    className={cl.removeItem}
+                            return(
+                                <div
+                                    onClick={(e) => e.stopPropagation()}
+                                    className={cl.card_detailItem}
+                                    key={key}
                                 >
-                                    <img src={deleteImg} alt="delete item"/>
+                                    <div className={cl.item}>
+                                        <div className={cl.item_holder}>
+                                            <div className={cl.item_description}>
+                                                <div>{expense.description}</div>
+                                                <div className={cl.time}>{[time[0], time[1]].join(" ")}</div>
+                                            </div>
+                                            <div className={cl.item_money}>
+                                                <b>
+                                                    RUB
+                                                    <div className="moneyDisplay">
+                                                        {cashNumberToString(expense.money)}
+                                                    </div>
+                                                </b>
+                                            </div>
+                                        </div>
+                                        <div onClick={() => deleteExpense(spending.category, key)}
+                                             className={cl.removeItem}
+                                        >
+                                            <img src={deleteImg} alt="delete item"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
                                 </div>
-                            </div>
-                            <hr/>
-                        </div>
-                    )}
-                )}
-            </div>
+                            )}
+                        )}
+                    </div>
+
+
         </CSSTransition>
     );
 };

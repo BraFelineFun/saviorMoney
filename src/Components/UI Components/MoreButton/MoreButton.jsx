@@ -3,7 +3,7 @@ import cl from "./moreButton.module.css"
 import editImg from "../../../Resources/img/edit.png"
 import deleteImg from "../../../Resources/img/delete.png"
 
-const MoreButton = ({removeCategory}) => {
+const MoreButton = ({removeCategory, edit}) => {
 
     const [isMenu, setIsMenu] = useState(false);
 
@@ -19,8 +19,7 @@ const MoreButton = ({removeCategory}) => {
         e.stopPropagation();
         setIsMenu(!isMenu);
     }
-    function removeCategoryFun(e){
-        console.log(removeCategory)
+    function remove(e){
         e.stopPropagation();
         removeCategory()
     }
@@ -29,13 +28,14 @@ const MoreButton = ({removeCategory}) => {
     return (
         <>
             <div className={cl.moreButton}>
-                <div onClick={toggleMenu} className={cl.circleGroup}>
+                <div onClick={toggleMenu}
+                     className={cl.circleGroup}>
                     <span className={isMenu? [cl.circle, cl.activeMenuCircle].join(" "): cl.circle}></span>
                     <span className={isMenu? [cl.circle, cl.activeMenuCircle].join(" "): cl.circle}></span>
                     <span className={isMenu? [cl.circle, cl.activeMenuCircle].join(" "): cl.circle}></span>
                 </div>
                 <div className={isMenu? [cl.dropDownMenu, cl.activeMenu].join(" "): cl.dropDownMenu}>
-                    <div onClick={removeCategoryFun}
+                    <div onClick={remove}
                          className={cl.menuItem}
                     >
                         <div className={cl.menuItem_icon}>
@@ -46,7 +46,8 @@ const MoreButton = ({removeCategory}) => {
                         </div>
                     </div>
                     <hr/>
-                    <div className={cl.menuItem}>
+                    <div onClick={edit}
+                        className={cl.menuItem}>
                         <div className={cl.menuItem_icon}>
                             <img src={editImg} alt="edit category"/>
                         </div>
@@ -56,12 +57,7 @@ const MoreButton = ({removeCategory}) => {
                     </div>
                 </div>
             </div>
-
-
         </>
-
-
-
     );
 };
 

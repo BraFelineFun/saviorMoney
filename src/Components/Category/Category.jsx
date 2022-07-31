@@ -1,20 +1,19 @@
-import React, {useState} from 'react';
+import React, {createContext, useState} from 'react';
 import './category.css'
 import Card from "../Card/Card";
 import RoundButton from "../UI Components/RoundButton/RoundButton";
 import FormCategory from "../FormAdd/FormCategory";
+import useToggle from "../../Hooks/useToggle";
+
+export const EditCategoryContext = createContext(null);
 
 const Category = () => {
 
-    const [sort, setSort] = useState("");
-    const [showForm, setShowForm] = useState(false);
+    const [sortField, setSortField] = useState("");
+    const [isShowForm, toggleShowForm] = useToggle(false);
 
-    const overflowStyle = {overflowY: showForm? "hidden": "auto"}
+    const [editCategory, setEditCategory] = useState(null);
 
-
-    function toggleShowForm(){
-        setShowForm(!showForm);
-    }
 
     return (
         <div className="card">
@@ -28,13 +27,13 @@ const Category = () => {
                 </div>
                 <div className="select">
                     <select onChange={(e)=>
-                        setSort(e.target.value)}
-                        value={sort}
+                        setSortField(e.target.value)}
+                        value={sortField}
                         name="sort"
                     >
 
                         <option disabled value="">Сортировка по</option>
-                        <option value="categoryName">
+                        <option value="category">
                             По названию
                         </option>
                         <option value="summaryMoney">
@@ -45,16 +44,20 @@ const Category = () => {
                 </div>
             </div>
 
-            <main style={overflowStyle} className="wrapperPadding">
+            <EditCategoryContext.Provider value={[editCategory, setEditCategory]}>
+                <main  className="wrapperPadding">
 
-                {showForm?
-                    <div className="formAddCategory">
-                     <FormCategory callback={toggleShowForm}/>
-                    </div>
-                    :
-                    <Card  sort={sort}/>
-                }
-            </main>
+
+                        {isShowForm || editCategory !== null?
+                            <div className="formAddCategory">
+                                <FormCategory callback={toggleShowForm}/>
+                            </div>
+                            :
+                            <Card  sortField={sortField}/>
+                        }
+
+                </main>
+            </EditCategoryContext.Provider>
 
         </div>
     );

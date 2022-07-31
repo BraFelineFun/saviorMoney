@@ -50,7 +50,8 @@ export const spendingSlice = createSlice({
         addExpense: (state, action) =>{
             const index = state.findIndex(obj => obj.category === action.payload.chosenCategory);
             state[index].summaryMoney += action.payload.spentSumNum;
-            state[index].expenses.push({description: action.payload.description, money: action.payload.spentSumNum, date: new Date().toString()})
+            state[index].expenses.push({description: action.payload.description,
+                money: action.payload.spentSumNum, date: new Date().toString()})
         },
         removeCategory: (state, action) =>{
             return state.filter((spending) => spending.category !== action.payload.category)
@@ -58,13 +59,29 @@ export const spendingSlice = createSlice({
         removeExpanse: (state, action) =>{
             const index = state.findIndex(obj => obj.category === action.payload.category);
             const expensesCopy = state[index].expenses;
-            const filteredCopy = expensesCopy.filter((expense) => +(new Date(expense.date)) !== action.payload.key)
+            const elementToSubtract = expensesCopy.find((expense) =>
+                +(new Date(expense.date)) === action.payload.key)
+            const filteredCopy = expensesCopy.filter((expense) =>
+                +(new Date(expense.date)) !== action.payload.key)
 
+            // Set list without exact expense as a new state
             state[index].expenses = filteredCopy;
-        }
 
+            // Subtract amount of expense money from summary money
+            state[index].summaryMoney -= elementToSubtract.money;
+        },
+        editCategory: (state, action) => {
+            //search element in state by old category's name
+            const index = state.findIndex(obj => obj.category === action.payload.oldCategory);
+            let elementToChange = state[index];
+
+            //set new category parameters
+            elementToChange = {...elementToChange, category: action.payload.category, color: action.payload.color};
+            state[index] = elementToChange;
+            return state;
+        }
     }
 
 })
-export const {addCategory, addExpense, removeCategory, removeExpanse} = spendingSlice.actions;
+export const {addCategory, addExpense, removeCategory, removeExpanse, editCategory} = spendingSlice.actions;
 export default spendingSlice.reducer;

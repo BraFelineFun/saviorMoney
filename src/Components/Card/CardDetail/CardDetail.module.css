@@ -1,6 +1,7 @@
 .card_expand{
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 0 5px 5px 5px;
+    cursor: default;
 }
 .card_detailItem{
     padding: 15px;

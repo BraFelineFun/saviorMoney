@@ -2,10 +2,14 @@ import React, {useMemo, useState} from 'react';
 import cl from "./Pie.module.css"
 import PieLabel from "./PieLabel";
 import {useSelector} from "react-redux";
+import Empty from "../UI Components/Empty/Empty";
+import useToggle from "../../Hooks/useToggle";
 
 const Pie = React.memo(() => {
 
     const [hoveredValue, setHoveredValue] = useState({category: "", summaryMoney: ""});
+    const [isShowForm, toggleForm] = useToggle(false);
+    //TODO Доработать добавление и кнопку
 
     const spendings = useSelector(state => state.spendings);
 
@@ -36,30 +40,61 @@ const Pie = React.memo(() => {
         return styles;
     }, [spendings])
 
+    const hasExpenses = useMemo(() => {
+        let hasExpensesCheck = false;
+        spendings.forEach((spending) =>{
+            spending.expenses.forEach((expense) =>{
+                if (expense.money > 0) hasExpensesCheck = true;
+            })
+        })
+        return hasExpensesCheck;
+
+    }, [spendings])
+
+    function drawEmpty(){
+        if (!spendings.length)
+            return (
+                <Empty emptyText={"Пока что ни одной категории"}/>
+            )
+
+        if (!hasExpenses)
+            return (
+                <Empty emptyText={"Пока что ни одной траты в категориях"}/>
+            )
+        return false;
+    }
+
     return (
         <div>
-
+            {/*<FormSpending/>*/}
+            {/*<div className="buttonAddCategory">*/}
+            {/*    <RoundButton callback={toggleForm}/>*/}
+            {/*</div>*/}
             <div className={cl.svg_container}>
-                <PieLabel hoveredValue={hoveredValue}/>
-                <svg
-                    className={cl.chart}
-                    viewBox="0 0 39 39"
-                >
-                    {
-                        spendings.map((spending, index) =>
-                            <circle
-                                key={spending.category}
-                                style={styles[index]}
-                                className={cl.unit}
-                                r="15.9"
-                                cx="50%"
-                                cy="50%"
-                                onMouseEnter={() => setHoveredValue(spending)}
-                                onMouseLeave={() => setHoveredValue({category: "", summaryMoney: ""})}
-                            >
-                            </circle>
-                        )}
-                </svg>
+                { drawEmpty() ||        //Drawing or empty Component or Pie
+                    <>
+                        <PieLabel hoveredValue={hoveredValue}/>
+                        <svg
+                            className={cl.chart}
+                            viewBox="0 0 39 39"
+                        >
+                            {
+                                spendings.map((spending, index) =>
+                                    <circle
+                                        key={spending.category}
+                                        style={styles[index]}
+                                        className={cl.unit}
+                                        r="15.9"
+                                        cx="50%"
+                                        cy="50%"
+                                        onMouseEnter={() => setHoveredValue(spending)}
+                                        onMouseLeave={() => setHoveredValue({category: "", summaryMoney: ""})}
+                                    >
+                                    </circle>
+                                )}
+                        </svg>
+                    </>
+                }
             </div>
         </div>
 
