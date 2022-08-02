@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/saviorMoney/static/css/main.908347a4.css",
-    "main.js": "/saviorMoney/static/js/main.68e85f5a.js",
+    "main.css": "/saviorMoney/static/css/main.c2118566.css",
+    "main.js": "/saviorMoney/static/js/main.864f2c4f.js",
     "static/media/libre-baskerville-v14-latin-700.woff": "/saviorMoney/static/media/libre-baskerville-v14-latin-700.ee419b79c2f94ed7d5ea.woff",
     "static/media/libre-baskerville-v14-latin-regular.woff": "/saviorMoney/static/media/libre-baskerville-v14-latin-regular.872eba0ebdd4bdd0dc01.woff",
     "static/media/libre-baskerville-v14-latin-700.woff2": "/saviorMoney/static/media/libre-baskerville-v14-latin-700.0e1c7cb3f0c9b9759c09.woff2",
     "static/media/libre-baskerville-v14-latin-regular.woff2": "/saviorMoney/static/media/libre-baskerville-v14-latin-regular.023e192311fcda1965f6.woff2",
     "static/media/edit.png": "/saviorMoney/static/media/edit.0f46e2728eb984e21ce8.png",
     "index.html": "/saviorMoney/index.html",
-    "main.908347a4.css.map": "/saviorMoney/static/css/main.908347a4.css.map",
-    "main.68e85f5a.js.map": "/saviorMoney/static/js/main.68e85f5a.js.map"
+    "main.c2118566.css.map": "/saviorMoney/static/css/main.c2118566.css.map",
+    "main.864f2c4f.js.map": "/saviorMoney/static/js/main.864f2c4f.js.map"
   },
   "entrypoints": [
-    "static/css/main.908347a4.css",
-    "static/js/main.68e85f5a.js"
+    "static/css/main.c2118566.css",
+    "static/js/main.864f2c4f.js"
   ]
 }
