@@ -85,9 +85,6 @@ body {
     background-color: #86cfa3;
 }
 
-.--active{
-    background-color: #9393f1;
-}
 
 .expandList-enter {
     opacity: 0;

@@ -77,8 +77,8 @@ const Card = ({sortField}) => {
                             </div>
                             <div className={cl.card_more}>
                                 <MoreButton
-                                    edit={toEditCategoryContext(spending)}
-                                    removeCategory={removeCategoryContext(spending.category)}
+                                    editCallback={toEditCategoryContext(spending)}
+                                    removeCallback={removeCategoryContext(spending.category)}
                                 />
                             </div>
                             </div>

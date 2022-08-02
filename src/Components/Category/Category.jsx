@@ -14,10 +14,17 @@ const Category = () => {
     const [isShowForm, toggleShowForm] = useToggle(false);
     const [editCategory, setEditCategory] = useState(null);
 
+    function toggleFormSetDefault(){
+        if (editCategory !== null)
+            setEditCategory(null);
+        else
+            toggleShowForm();
+    }
+
     return (
         <div className="card">
             <div className="buttonAddCategory">
-                <RoundButton callback={toggleShowForm}/>
+                <RoundButton callback={toggleFormSetDefault}/>
             </div>
 
             <div className="headWrapper wrapperPadding">
@@ -48,7 +55,10 @@ const Category = () => {
 
                     <SwitchTransition>
                         <CSSTransition
-                            key={isShowForm || editCategory !== null} timeout={200} classNames="fade">
+                            key={isShowForm || editCategory !== null}
+                            timeout={200}
+                            classNames="fade"
+                        >
                         {isShowForm || editCategory !== null?
                             <div className="formAddCategory">
                                 <FormCategory callback={toggleShowForm}/>
