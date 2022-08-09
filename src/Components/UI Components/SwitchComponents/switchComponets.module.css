@@ -1,0 +1,35 @@
+.content{
+    width: 100%;
+    height: 100%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.title h3{
+    word-break: break-word;
+}
+
+.navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 30%;
+    border-radius: 15px;
+    padding: 10px;
+
+    background-color: #fff;
+    cursor: pointer;
+}
+.arrow{
+    margin-left: 5px;
+    height: 30px;
+    transition: 0.3s ease-in-out;
+}
+.arrow_forward{
+    transform: rotateY(180deg);
+}

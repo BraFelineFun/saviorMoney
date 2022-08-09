@@ -46,7 +46,7 @@ const FormCategory = ({callback}) => {
     }
 
     return (
-        <div className={cl.formAddCategory + " wrapperPadding"}>
+        <div className={cl.form + " wrapperPadding"}>
             <div className={cl.inputField}>
                 <label htmlFor="category">Введите категорию трат:</label>
                 <input

@@ -85,7 +85,7 @@ body {
     background-color: #86cfa3;
 }
 
-
+/*EXPAND CSS TRANSITION*/
 .expandList-enter {
     opacity: 0;
 }
@@ -101,3 +101,39 @@ body {
     transition: opacity 200ms;
 }
 
+/*SWITCH CSS TRANSITION*/
+.fade-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.fade-enter-active {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.fade-enter-active,
+.fade-exit-active {
+    transition: opacity 500ms , transform 500ms ;
+}
+
+.expandWidth-enter{
+    max-width: 50px;
+}
+.expandWidth-enter-active{
+    transition: 200ms;
+    max-width: 300px;
+}
+.expandWidth-exit{
+    max-width: 300px;
+}
+.expandWidth-exit-active{
+    max-width: 50px;
+    transition: 200ms;
+}

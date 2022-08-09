@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import RoundButton from "../UI Components/RoundButton/RoundButton";
 import FormCategory from "../FormAdd/FormCategory";
 import useToggle from "../../Hooks/useToggle";
-import {CSSTransition, SwitchTransition} from "react-transition-group";
+import SwitchComponents from "../UI Components/SwitchComponents/SwitchComponents";
 
 export const EditCategoryContext = createContext(null);
 
@@ -23,9 +23,9 @@ const Category = () => {
 
     return (
         <div className="card">
-            <div className="buttonAddCategory">
-                <RoundButton callback={toggleFormSetDefault}/>
-            </div>
+            {/*<div className="buttonAddCategory">*/}
+            {/*    <RoundButton callback={toggleFormSetDefault}/>*/}
+            {/*</div>*/}
 
             <div className="headWrapper wrapperPadding">
                 <div className="headTitle">
@@ -52,24 +52,12 @@ const Category = () => {
 
             <EditCategoryContext.Provider value={[editCategory, setEditCategory]}>
                 <main  className="wrapperPadding category_main">
-
-                    <SwitchTransition>
-                        <CSSTransition
-                            key={isShowForm || editCategory !== null}
-                            timeout={200}
-                            classNames="fade"
-                        >
-                        {isShowForm || editCategory !== null?
-                            <div className="formAddCategory">
-                                <FormCategory callback={toggleShowForm}/>
-                            </div>
-                            :
-                            <div>
-                                <Card  sortField={sortField}/>
-                            </div>
-                        }
-                        </CSSTransition>
-                    </SwitchTransition>
+                    <SwitchComponents
+                        switchTitle={editCategory? "Изменить категорию": "Добавить категорию"}
+                        switchKey={isShowForm || editCategory !== null}
+                        SwitchComponent={<FormCategory callback={toggleShowForm}/>}
+                        SwitchedComponent={<Card  sortField={sortField}/>}
+                    />
                 </main>
             </EditCategoryContext.Provider>
 

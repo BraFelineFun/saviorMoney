@@ -45,7 +45,7 @@ const FormSpending = () => {
 
 
     return (
-        <div className={cl.addSpendings + " wrapperPadding"}>
+        <div className={cl.form + " wrapperPadding"}>
             <div className={cl.categoryList}>
                 <div className={cl.categoryListTitle}
                      onClick={toggleExpandList}
