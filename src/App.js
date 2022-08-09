@@ -3,6 +3,7 @@ import './normalize.css'
 import Pie from "./Components/Pie/Pie";
 import FormSpending from "./Components/FormAdd/FormSpending";
 import Category from "./Components/Category/Category";
+import PieContainer from "./Components/Pie/PieContainer";
 
 function App() {
 
@@ -14,12 +15,12 @@ function App() {
             </div>
 
             <div className="container">
-                <Pie />
+                <PieContainer />
             </div>
 
-            <div className="container">
-                <FormSpending/>
-            </div>
+            {/*<div className="container">*/}
+            {/*    <FormSpending/>*/}
+            {/*</div>*/}
 
 
 

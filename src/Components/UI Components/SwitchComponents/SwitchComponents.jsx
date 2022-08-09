@@ -2,8 +2,10 @@ import React from 'react';
 import {CSSTransition, SwitchTransition} from "react-transition-group";
 import cl from './switchComponets.module.css'
 import back from '../../../Resources/img/back.png'
+import useToggle from "../../../Hooks/useToggle";
 
-const SwitchComponents = ({SwitchComponent, SwitchedComponent, switchKey, switchTitle}) => {
+const SwitchComponents = ({SwitchComponent, SwitchedComponent, switchKey, setSwitchKey, switchTitle}) => {
+
     return (
         <div className={cl.content}>
             <div className={cl.header}>
@@ -12,7 +14,9 @@ const SwitchComponents = ({SwitchComponent, SwitchedComponent, switchKey, switch
                         <h3>{switchTitle}</h3>
                     }
                 </div>
-                <div className={cl.navigation}>
+                <div onClick={setSwitchKey}
+                    className={cl.navigation}
+                >
                     <label>
                         {!switchKey?
                             switchTitle:
@@ -37,11 +41,11 @@ const SwitchComponents = ({SwitchComponent, SwitchedComponent, switchKey, switch
                 >
                     {switchKey?
                         <div>
-                            {SwitchComponent}
+                            {SwitchedComponent}
                         </div>
                         :
                         <div>
-                            {SwitchedComponent}
+                            {SwitchComponent}
                         </div>
                     }
                 </CSSTransition>

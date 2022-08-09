@@ -12,6 +12,7 @@ const FormCategory = ({callback}) => {
 
     const [color, setColor] = useState(toEditCategory?.color || getRandomColor());
     const [category, setCategory] = useState(toEditCategory?.category || "");
+    const [spin, setSpin] = useState(false);//TODO: Сделать хук через ref?
 
     const dispatch = useDispatch();
     const spendings = useSelector(state => state.spendings)
@@ -63,7 +64,12 @@ const FormCategory = ({callback}) => {
                     value={color}
                     type="color"/>
 
-                <img onClick={() => setColor(getRandomColor())}
+                <img onClick={() => {
+                    setColor(getRandomColor());
+                    setSpin(true);
+                    setTimeout(() => setSpin(false), 300)
+                }}
+                    className={spin && cl.spin}
                     src={refresh}
                     alt="refresh color"
                 />

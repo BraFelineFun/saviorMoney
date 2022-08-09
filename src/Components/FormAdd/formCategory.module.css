@@ -15,12 +15,18 @@
     cursor: pointer;
     height: 30px;
     width: 30px;
-    padding-left: 15px;
     transition: 0.2s;
+}
+.inputField input{
+    margin-right: 15px;
 }
 .inputField img:hover{
     transform: scale(130%);
 }
+.spin{
+    animation: spin 0.3s linear;
+}
+
 button{
     margin-top: 30px;
 }
@@ -76,4 +82,9 @@ button{
 .__chosenCategory{
     background-color: #9393f1;
     color: #ffffff;
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
 }
