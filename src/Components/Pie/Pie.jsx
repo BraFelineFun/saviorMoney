@@ -4,6 +4,7 @@ import PieLabel from "./PieLabel";
 import {useSelector} from "react-redux";
 import Empty from "../UI Components/Empty/Empty";
 import useToggle from "../../Hooks/useToggle";
+import ExpensesList from "../ExpensesList/ExpensesList";
 
 const Pie = React.memo(() => {
 
@@ -96,6 +97,7 @@ const Pie = React.memo(() => {
                     </>
                 }
             </div>
+            <ExpensesList/>
         </div>
 
     );

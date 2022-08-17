@@ -1,13 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import cl from "./card.module.css"
 import CardDetail from "./CardDetail/CardDetail";
 import MoreButton from "../UI Components/MoreButton/MoreButton";
 import {removeCategory} from "../../Store/Slices/SpendingsSlice";
 import cashNumberToString from "../../Helpers/cashNumberToString";
-import useSort from "../../Hooks/useSort";
 import Empty from "../UI Components/Empty/Empty";
 import {EditCategoryContext} from "../Category/Category";
+import sortByField from "../../Helpers/sortByField";
 
 const Card = ({sortField}) => {
 
@@ -15,7 +15,7 @@ const Card = ({sortField}) => {
     const [expandCardCategory,setExpandCardCategory] = useState([]);
     const dispatch = useDispatch();
 
-    const spendings = useSort(sortField, spendingsState);
+    const spendings = useMemo(() => sortByField(sortField, spendingsState), [spendingsState, sortField]);
     const [_, editCategory] =useContext(EditCategoryContext);
 
     function expandCardSetter(category){
@@ -94,4 +94,4 @@ const Card = ({sortField}) => {
     );
 };
 
-export default Card;
+export default React.memo(Card);

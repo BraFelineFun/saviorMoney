@@ -8,7 +8,7 @@ const initialState = [
         color: "#ff3c3c",
         expenses:[
             {description: "dsfs", money: 10, date: new Date(2008, 0, 1, 0, 0, 35).toString()},
-            {description: "fdsa", money: 20, date: new Date(2011, 0, 1, 0, 0, 0).toString()}
+            {description: "fdsa", money: 20, date: new Date(2011, 0, 1, 0, 3, 0).toString()}
         ]
     },
     {
@@ -17,7 +17,7 @@ const initialState = [
         color: "#3cd2ff",
         expenses:[
             {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 0, 23, 0).toString()},
-            {description: "fdsa", money: 20, date: new Date(2011, 0, 1, 0, 0, 0).toString()}
+            {description: "fdsa", money: 20, date: new Date(2015, 5, 1, 0, 0, 0).toString()}
         ]
     },
     {
@@ -25,7 +25,7 @@ const initialState = [
         summaryMoney: 30,
         color: "#ff3cbb",
         expenses:[
-            {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 0, 5, 0).toString()},
+            {description: "dsfs", money: 10, date: new Date(2012, 0, 1, 0, 5, 0).toString()},
             {description: "fdsa", money: 20, date: new Date(2011, 0, 5, 0, 0, 0).toString()}
         ]
     },
@@ -34,8 +34,8 @@ const initialState = [
         summaryMoney: 30,
         color: "#84ff3c",
         expenses:[
-            {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 1, 0, 0).toString()},
-            {description: "fdsa", money: 20, date: new Date(2011, 1, 1, 0, 0, 0).toString()}
+            {description: "dsfs", money: 10, date: new Date(2011, 0, 1, 1, 0, 56).toString()},
+            {description: "fdsa", money: 20, date: new Date(2021, 1, 1, 0, 0, 0).toString()}
         ]
     }
 ]

@@ -69,7 +69,7 @@ const FormCategory = ({callback}) => {
                     setSpin(true);
                     setTimeout(() => setSpin(false), 300)
                 }}
-                    className={spin && cl.spin}
+                    className={spin? cl.spin: ""}
                     src={refresh}
                     alt="refresh color"
                 />

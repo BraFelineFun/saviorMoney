@@ -12,7 +12,7 @@ const PieContainer = () => {
     return (
         <div>
             <Header title={"Главная"}></Header>
-            <div  className="wrapperPadding">
+            <main className="wrapperPadding">
                 <SwitchComponents
                     switchTitle={"Добавить трату"}
                     switchKey={isToggled}
@@ -20,7 +20,7 @@ const PieContainer = () => {
                     SwitchComponent={<Pie/>}
                     SwitchedComponent={<FormSpending/>}
                 />
-            </div>
+            </main>
         </div>
     );
 };

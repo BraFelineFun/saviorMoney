@@ -2,12 +2,7 @@
     position: relative;
 }
 
-main{
-    z-index: 0;
-    position: relative;
-    overflow-y: auto;
-    height: 70vh;
-}
+
 
 .buttonAddCategory{
     z-index: 5;
