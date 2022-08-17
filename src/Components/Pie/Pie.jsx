@@ -34,7 +34,7 @@ const Pie = React.memo(() => {
                 prevSpentPercent += spentPercent;
             }
         }
-        //====Structure : ====
+        //==== Structure: ====
         // stroke: #a2c6e0;
         // stroke-dasharray: 11 100;
         // stroke-dashoffset: -8;
@@ -67,10 +67,6 @@ const Pie = React.memo(() => {
 
     return (
         <>
-            {/*<FormSpending/>*/}
-            {/*<div className="buttonAddCategory">*/}
-            {/*    <RoundButton callback={toggleForm}/>*/}
-            {/*</div>*/}
             <div className={cl.svg_container}>
                 { drawEmpty() ||        //Drawing or empty Component or Pie
                     <>
@@ -97,9 +93,7 @@ const Pie = React.memo(() => {
                     </>
                 }
             </div>
-            <ExpensesList/>
         </>
-
     );
 });
 

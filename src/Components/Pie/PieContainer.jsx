@@ -5,6 +5,7 @@ import FormSpending from "../FormAdd/FormSpending";
 import useToggle from "../../Hooks/useToggle";
 import Header from "../UI Components/Header/Header";
 import cl from './Pie.module.css'
+import ExpensesList from "../ExpensesList/ExpensesList";
 
 const PieContainer = () => {
 
@@ -25,6 +26,7 @@ const PieContainer = () => {
                         SwitchedComponent={<FormSpending/>}
                     />
                 </div>
+                {!isToggled && <ExpensesList/>}
             </main>
         </div>
     );
