@@ -6,6 +6,7 @@ import FormCategory from "../FormAdd/FormCategory";
 import useToggle from "../../Hooks/useToggle";
 import SwitchComponents from "../UI Components/SwitchComponents/SwitchComponents";
 import Header from "../UI Components/Header/Header";
+import Select from "../UI Components/Select/Select";
 
 export const EditCategoryContext = createContext(null);
 
@@ -22,25 +23,16 @@ const Category = () => {
             toggleShowForm();
     }
 
+    const selectObject = {title: "Сортировка по", options: [
+            {value: "category", description: "По названию"},
+            {value: "summaryMoney", description: "По сумме"}
+    ]}
+
     return (
         <div className="card">
 
             <Header title={"Категории"}>
-                <select onChange={(e)=>
-                    setSortField(e.target.value)}
-                        value={sortField}
-                        name="sort"
-                >
-
-                    <option disabled value="">Сортировка по</option>
-                    <option value="category">
-                        По названию
-                    </option>
-                    <option value="summaryMoney">
-                        По сумме
-                    </option>
-
-                </select>
+                <Select selectObject={selectObject} selected={sortField} setSelected={setSortField}/>
             </Header>
 
             <EditCategoryContext.Provider value={[editCategory, setEditCategory]}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import dateToString from "../../Helpers/dateToString";
-import cl from "../Card/CardDetail/CardDetail.module.css";
+import cl from "./expenseItem.module.css"
 import cashNumberToString from "../../Helpers/cashNumberToString";
 import deleteImg from "../../Resources/img/delete.png";
 import {removeExpanse} from "../../Store/Slices/SpendingsSlice";

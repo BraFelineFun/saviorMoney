@@ -49,3 +49,7 @@
     opacity: 0.8;
     stroke-width: 7;
 }
+
+.main_container{
+    overflow: hidden;
+}

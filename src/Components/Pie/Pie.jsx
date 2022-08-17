@@ -66,7 +66,7 @@ const Pie = React.memo(() => {
     }
 
     return (
-        <div>
+        <>
             {/*<FormSpending/>*/}
             {/*<div className="buttonAddCategory">*/}
             {/*    <RoundButton callback={toggleForm}/>*/}
@@ -98,7 +98,7 @@ const Pie = React.memo(() => {
                 }
             </div>
             <ExpensesList/>
-        </div>
+        </>
 
     );
 });

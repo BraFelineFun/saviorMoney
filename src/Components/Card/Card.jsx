@@ -15,7 +15,10 @@ const Card = ({sortField}) => {
     const [expandCardCategory,setExpandCardCategory] = useState([]);
     const dispatch = useDispatch();
 
-    const spendings = useMemo(() => sortByField(sortField, spendingsState), [spendingsState, sortField]);
+    const spendings = useMemo(() =>
+        sortByField(sortField, spendingsState)
+    , [spendingsState, sortField]);
+
     const [_, editCategory] =useContext(EditCategoryContext);
 
     function expandCardSetter(category){
@@ -51,41 +54,42 @@ const Card = ({sortField}) => {
                     let isIncluded = expandCardCategory.includes(spending.category);
                     let color = {backgroundColor: spending.color};
 
-                    return (<div
-                        onClick={() => expandCardSetter(spending.category)}
-                        key={spending.category}
-                        style={color}
-                        className={cl.cardSpending + " wrapperPadding"}
-                    >
-                        <div className={cl.card_main}>
-                            <div
-                                className={isIncluded?
-                                    [cl.card_properties, cl.expendedCard].join(" "):
-                                    cl.card_properties}
-                            >
+                    return (
+                        <div
+                            onClick={() => expandCardSetter(spending.category)}
+                            key={spending.category}
+                            style={color}
+                            className={cl.cardSpending + " wrapperPadding"}
+                        >
+                            <div className={cl.card_main}>
+                                <div
+                                    className={isIncluded?
+                                        [cl.card_properties, cl.expendedCard].join(" "):
+                                        cl.card_properties}
+                                >
 
-                                <div className={cl.card_name}>
-                                    {spending.category}
-                                </div>
-                                <div className={cl.card_spentSum}>
-                                    <b>
-                                        <div className="">RUB</div>
-                                        <div className="moneyDisplay">{cashNumberToString(spending.summaryMoney)}</div>
-                                    </b>
+                                    <div className={cl.card_name}>
+                                        {spending.category}
+                                    </div>
+                                    <div className={cl.card_spentSum}>
+                                        <b>
+                                            <div className="">RUB</div>
+                                            <div className="moneyDisplay">{cashNumberToString(spending.summaryMoney)}</div>
+                                        </b>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={cl.card_more}>
-                                <MoreButton
-                                    editCallback={toEditCategoryContext(spending)}
-                                    removeCallback={removeCategoryContext(spending.category)}
-                                />
-                            </div>
-                            </div>
-                                <CardDetail
-                                    isExpandCard={isIncluded}
-                                    spending={spending}
-                                />
+                                <div className={cl.card_more}>
+                                    <MoreButton
+                                        editCallback={toEditCategoryContext(spending)}
+                                        removeCallback={removeCategoryContext(spending.category)}
+                                    />
+                                </div>
+                                </div>
+                                    <CardDetail
+                                        isExpandCard={isIncluded}
+                                        spending={spending}
+                                    />
                         </div>
                     )
                 })
