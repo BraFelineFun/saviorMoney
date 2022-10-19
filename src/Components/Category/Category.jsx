@@ -1,7 +1,6 @@
 import React, {createContext, useState} from 'react';
 import './category.css'
 import Card from "../Card/Card";
-import RoundButton from "../UI Components/RoundButton/RoundButton";
 import FormCategory from "../FormAdd/FormCategory";
 import useToggle from "../../Hooks/useToggle";
 import SwitchComponents from "../UI Components/SwitchComponents/SwitchComponents";

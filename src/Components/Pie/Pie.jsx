@@ -3,14 +3,10 @@ import cl from "./Pie.module.css"
 import PieLabel from "./PieLabel";
 import {useSelector} from "react-redux";
 import Empty from "../UI Components/Empty/Empty";
-import useToggle from "../../Hooks/useToggle";
-import ExpensesList from "../ExpensesList/ExpensesList";
 
 const Pie = React.memo(() => {
 
     const [hoveredValue, setHoveredValue] = useState({category: "", summaryMoney: ""});
-    const [isShowForm, toggleForm] = useToggle(false);
-    //TODO Доработать добавление и кнопку
 
     const spendings = useSelector(state => state.spendings);
 
