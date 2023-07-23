@@ -1,0 +1,57 @@
+.categoryList {
+    background-color: #fff;
+    border: 1px solid #6b6b6b;
+}
+
+.categoryList hr {
+    margin-bottom: 0;
+}
+
+.categoryListTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.categoryListTitle img {
+    width: 35px;
+    height: 35px;
+    margin-left: 30px;
+    transition: 0.4s ease-in-out;
+}
+
+.categoryExpandArrow {
+    transform: rotateX(180deg);
+}
+
+.expandBody {
+    overflow: hidden;
+}
+
+.expandList {
+    display: grid;
+    transition: grid-template-rows 0.5s ease-out;
+}
+
+/*EXPAND CSS TRANSITION*/
+.expandList-enter {
+    grid-template-rows: 0fr;
+}
+.expandList-enter-active {
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.5s ease-out;
+}
+
+.expandList-enter-done {
+    grid-template-rows: 1fr;
+}
+
+.expandList-exit {
+    grid-template-rows: 1fr;
+}
+
+.expandList-exit-active {
+    grid-template-rows: 0fr;
+}

@@ -7,6 +7,7 @@ import {CSSTransition} from "react-transition-group";
 
 import arrow from "../../Resources/img/arrow-expand.png"
 import cl from './formCategory.module.css'
+import Collapse from "../UI Components/Collapse/Collapse";
 
 
 const FormSpending = () => {
@@ -46,37 +47,24 @@ const FormSpending = () => {
 
     return (
         <div className={cl.form + " wrapperPadding"}>
-            <div className={cl.categoryList}>
-                <div className={cl.categoryListTitle}
-                     onClick={toggleExpandList}
-                >
-                    <h2>Категории:</h2>
-                    <img
-                        className={expandList? cl.categoryExpandArrow: ""}
-                        src={arrow}
-                        alt="arrow to expand list"
-                    />
+            <Collapse>
+                <div className={cl.categoryListContent}>
+                    {
+                        spendings.map(({category}) =>
+                            //TODO: добавить маркер цвета
+                            <div
+                                className={category === chosenCategory?
+                                    [cl.categoryItem, cl.__chosenCategory].join(" ")
+                                    : cl.categoryItem}
+                                onClick={() => setChosenCategory(category)}
+                                key={category}
+                            >
+                                {category}
+                            </div>
+                        )
+                    }
                 </div>
-                {expandList && <hr/>}
-                <CSSTransition in={expandList} timeout={200} classNames="expandList" unmountOnExit>
-                    <div className={cl.categoryListContent}>
-                        {
-                            spendings.map(({category}) =>
-                                //TODO: добавить маркер цвета
-                                <div
-                                    className={category === chosenCategory?
-                                        [cl.__chosenCategory, cl.categoryItem].join(" ")
-                                        : cl.categoryItem}
-                                    onClick={() => setChosenCategory(category)}
-                                    key={category}
-                                >
-                                    {category}
-                                </div>
-                            )
-                        }
-                    </div>
-                </CSSTransition>
-            </div>
+            </Collapse>
 
             <div className={cl.inputField}>
                 <label htmlFor="spentSum">Введите сумму:</label>
@@ -84,7 +72,8 @@ const FormSpending = () => {
                     id="spentSum"
                     onChange={(e) => checkNumberInput(e.target.value)}
                     value={spentSum}
-                    type="number"/>
+                    type="number"
+                />
             </div>
             <div className={cl.inputField}>
                 <label htmlFor="description">Введите описание:</label>
