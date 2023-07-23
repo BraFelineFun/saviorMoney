@@ -2,7 +2,6 @@ import React from 'react';
 import {CSSTransition, SwitchTransition} from "react-transition-group";
 import cl from './switchComponets.module.css'
 import back from '../../../Resources/img/back.png'
-import useToggle from "../../../Hooks/useToggle";
 
 const SwitchComponents = ({SwitchComponent, SwitchedComponent, switchKey, setSwitchKey, switchTitle}) => {
 
@@ -37,7 +36,12 @@ const SwitchComponents = ({SwitchComponent, SwitchedComponent, switchKey, setSwi
                 <CSSTransition
                     key={switchKey}
                     timeout={200}
-                    classNames="fade"
+                    classNames={{
+                        enter: cl['fade-enter'],
+                        enterActive: cl['fade-enter-active'],
+                        exit: cl['fade-exit'],
+                        exitActive: cl['fade-exit-active']
+                    }}
                 >
                     {switchKey?
                         <div>

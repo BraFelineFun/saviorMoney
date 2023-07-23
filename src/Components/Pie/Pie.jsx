@@ -19,7 +19,7 @@ const Pie = React.memo(() => {
 
             let prevSpentPercent = 0;
             for(let i = 0; i < length; i++){
-                let spentPercent = spendings[i].summaryMoney/sum* 100;
+                let spentPercent = spendings[i].summaryMoney / sum * 100;
 
                 let style = {
                     stroke: `${spendings[i].color}`,

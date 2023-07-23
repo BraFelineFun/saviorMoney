@@ -26,3 +26,18 @@ span.plus:after{
     content: "";
     transform: rotate(-90deg);
 }
+
+.expandWidth-enter{
+    max-width: 50px;
+}
+.expandWidth-enter-active{
+    transition: 200ms;
+    max-width: 300px;
+}
+.expandWidth-exit{
+    max-width: 300px;
+}
+.expandWidth-exit-active{
+    max-width: 50px;
+    transition: 200ms;
+}

@@ -5,7 +5,16 @@ const RoundButton = ({callback}) => {
     const [state, setState] = useState(false);
     return (
         <SwitchTransition>
-            <CSSTransition key={state} classNames="expandWidth" timeout={200}>
+            <CSSTransition
+                key={state}
+                classNames={{
+                    enter: cl['expandWidth-enter'],
+                    enterActive: cl['expandWidth-enter-active'],
+                    exit: cl['expandWidth-exit'],
+                    exitActive: cl['expandWidth-exit-active']
+                }}
+                timeout={200}
+            >
 
                     <div onClick={callback} className={cl.round}>
 

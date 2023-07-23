@@ -74,10 +74,7 @@ const FormCategory = ({callback}) => {
                     alt="refresh color"
                 />
             </div>
-            <button
-
-                onClick={categoryChooseAction}
-            >
+            <button onClick={categoryChooseAction} >
                 Добавить
             </button>
         </div>

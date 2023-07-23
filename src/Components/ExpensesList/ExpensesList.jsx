@@ -3,9 +3,10 @@ import {useSelector} from "react-redux";
 import sortByField from "../../Helpers/sortByField";
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import getExpenseKey from "../ExpenseItem/getExpenseKey";
-import './expensesList.css'
+import cl from './expensesList.module.css'
 import Header from "../UI Components/Header/Header";
 import Select from "../UI Components/Select/Select";
+import arrow from '../../Resources/img/arrow-expand.png';
 
 const ExpensesList = () => {
 
@@ -35,18 +36,17 @@ const ExpensesList = () => {
 
 
     return (
-        <div className={!expandContainer? "expenseContainer": "expenseContainer" + " containerExpended"}>
+        <div className={!expandContainer? cl.expenseContainer : `${cl.expenseContainer} ${cl.containerExpended}`}>
             <div className="header">
                 <div className="header_title">
-                    <div className="showIcon">
-                        <span
-                            onClick={() =>
-                                setExpandContainer(!expandContainer)}
-                        >
-                            expand
-                        </span>
+                    <div className={expandContainer? cl.showIcon: `${cl.showIcon} ${cl.flipped}`}>
+                        <img
+                            onClick={() => setExpandContainer(!expandContainer)}
+                            src={arrow}
+                            alt='toggle expenses list'
+                        />
                     </div>
-                    <Header title={"Список трат"}>
+                    <Header title="Список трат">
                         <Select selectObject={selectObject} selected={sortField} setSelected={setSortField}/>
                     </Header>
                 </div>
@@ -54,15 +54,12 @@ const ExpensesList = () => {
             </div>
 
             {expandContainer &&
-                <div className="expenseList">
+                <div className={cl.expenseList}>
                     {sortedExpenses.map((expense)=>
-                        <div
-                            className="expense"
-                            key={getExpenseKey(expense)}
-                        >
-                            <div className="expenseCategoryMarker">
-                                <div style={{backgroundColor: expense.color}} className="expenseColor"></div>
-                                <div className="expenseCategory">{expense.category}</div>
+                        <div key={getExpenseKey(expense)}>
+                            <div className={cl.expenseCategoryMarker}>
+                                <div style={{backgroundColor: expense.color}} className={cl.expenseColor}></div>
+                                <div>{expense.category}</div>
                             </div>
 
                             <ExpenseItem expense={expense} category={expense.category}/>
