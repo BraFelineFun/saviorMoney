@@ -12,44 +12,45 @@ import sortByField from "../../Helpers/sortByField";
 const Card = ({sortField}) => {
 
     const spendingsState = useSelector(state => state.spendings);
-    const [expandCardCategory,setExpandCardCategory] = useState([]);
+    const [expandCardCategory, setExpandCardCategory] = useState([]);
     const dispatch = useDispatch();
 
     const spendings = useMemo(() =>
-        sortByField(sortField, spendingsState)
-    , [spendingsState, sortField]);
+            sortByField(sortField, spendingsState)
+        , [spendingsState, sortField]);
 
-    const [_, editCategory] =useContext(EditCategoryContext);
+    const [_, editCategory] = useContext(EditCategoryContext);
 
-    function expandCardSetter(category){
-        if(!expandCardCategory.includes(category))
+    function expandCardSetter(category) {
+        if (!expandCardCategory.includes(category))
             setExpandCardCategory([...expandCardCategory, category]);
         else
             setExpandCardCategory((prev) =>
                 prev.filter((thisCategory) => category !== thisCategory
-            ))
+                ))
     }
 
-    function removeCategoryContext(category){
+    function removeCategoryContext(category) {
         return function () {
             dispatch(removeCategory({category}))
         }
     }
-    function toEditCategoryContext(spending){
-        return function (){
+
+    function toEditCategoryContext(spending) {
+        return function () {
             editCategory({category: spending.category, color: spending.color})
         }
     }
 
     return (
         <>
-            { !spendings.length?
+            {!spendings.length ?
                 <div className={cl.empty}>
                     <Empty emptyText={"Пока что нет ни одной категории"}/>
                 </div>
 
                 :
-                spendings.map((spending) =>{
+                spendings.map((spending) => {
 
                     let isIncluded = expandCardCategory.includes(spending.category);
                     let color = {backgroundColor: spending.color};
@@ -63,8 +64,8 @@ const Card = ({sortField}) => {
                         >
                             <div className={cl.card_main}>
                                 <div
-                                    className={isIncluded?
-                                        [cl.card_properties, cl.expendedCard].join(" "):
+                                    className={isIncluded ?
+                                        [cl.card_properties, cl.expendedCard].join(" ") :
                                         cl.card_properties}
                                 >
 
@@ -74,7 +75,8 @@ const Card = ({sortField}) => {
                                     <div className={cl.card_spentSum}>
                                         <b>
                                             <div className="">RUB</div>
-                                            <div className="moneyDisplay">{cashNumberToString(spending.summaryMoney)}</div>
+                                            <div
+                                                className="moneyDisplay">{cashNumberToString(spending.summaryMoney)}</div>
                                         </b>
 
                                     </div>
@@ -85,11 +87,11 @@ const Card = ({sortField}) => {
                                         removeCallback={removeCategoryContext(spending.category)}
                                     />
                                 </div>
-                                </div>
-                                    <CardDetail
-                                        isExpandCard={isIncluded}
-                                        spending={spending}
-                                    />
+                            </div>
+                            <CardDetail
+                                isExpandCard={isIncluded}
+                                spending={spending}
+                            />
                         </div>
                     )
                 })

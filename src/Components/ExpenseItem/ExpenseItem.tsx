@@ -4,13 +4,13 @@ import cl from "./expenseItem.module.css"
 import cashNumberToString from "../../Helpers/cashNumberToString";
 import deleteImg from "../../Resources/img/delete.png";
 import {removeExpanse} from "../../Store/Slices/SpendingsSlice";
-import {useDispatch} from "react-redux";
 import getExpenseKey from "./getExpenseKey";
+import useAppDispatch from "../../Hooks/useAppDispatch";
 
 const ExpenseItem = ({expense, category}) => {
 
-    const dispatch = useDispatch();
-    const time = dateToString(expense.date);
+    const dispatch = useAppDispatch();
+    const {date, time} = dateToString(expense.date);
     const key = getExpenseKey(expense);
 
     function deleteExpense(category, key){
@@ -26,7 +26,7 @@ const ExpenseItem = ({expense, category}) => {
                 <div className={cl.item_holder}>
                     <div className={cl.item_description}>
                         <div>{expense.description}</div>
-                        <div className={cl.time}>{[time[0], time[1]].join(" ")}</div>
+                        <div className={cl.time}>{[date, time].join(" ")}</div>
                     </div>
                     <div className={cl.item_money}>
                         <b>

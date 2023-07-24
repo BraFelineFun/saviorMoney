@@ -1,6 +1,7 @@
+type sortType = number | string | undefined;
 
 export default function sortByField (sortField, list){
-    let sortType;
+    let sortType: sortType;
     try {
         sortType = typeof(list[0][sortField]);
     }

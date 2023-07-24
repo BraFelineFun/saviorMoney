@@ -1,7 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+interface IExpense {
+    description: string,
+    money: number,
+    date: string,
+}
 
-const initialState = [
+interface ICategory {
+    category: string,
+    summaryMoney: number,
+    color: string,
+    expenses: IExpense[]
+}
+
+
+const initialState :ICategory[] = [
     {
         category: "products",
         summaryMoney: 30,

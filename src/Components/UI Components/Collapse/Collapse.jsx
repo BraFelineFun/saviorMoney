@@ -21,7 +21,7 @@ const Collapse = ({children}) => {
             </div>
             <CSSTransition
                 in={isExpanded}
-                timeout={5500}
+                timeout={500}
                 unmountOnExit
                 classNames={{
                     enter: cl['expandList-enter'],
