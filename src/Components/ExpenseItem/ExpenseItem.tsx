@@ -1,19 +1,22 @@
-import React from 'react';
+import React, {FC} from 'react';
 import dateToString from "../../Helpers/dateToString";
 import cl from "./expenseItem.module.css"
 import cashNumberToString from "../../Helpers/cashNumberToString";
-import deleteImg from "../../Resources/img/delete.png";
 import {removeExpanse} from "../../Store/Slices/SpendingsSlice";
 import getExpenseKey from "./getExpenseKey";
 import useAppDispatch from "../../Hooks/useAppDispatch";
+import {IExpenseWithCategory} from "../../Models/IExpenseWithCategory";
 
-const ExpenseItem = ({expense, category}) => {
+const deleteImg = require("../../Resources/img/delete.png");
+
+
+const ExpenseItem: FC<IExpenseWithCategory> = ({category, ...expense}) => {
 
     const dispatch = useAppDispatch();
     const {date, time} = dateToString(expense.date);
     const key = getExpenseKey(expense);
 
-    function deleteExpense(category, key){
+    function deleteExpense(category: string, key: number): void {
         dispatch(removeExpanse({category, key}))
     }
 

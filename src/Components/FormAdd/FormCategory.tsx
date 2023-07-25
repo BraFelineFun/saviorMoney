@@ -1,23 +1,34 @@
-import React, {useContext} from 'react';
+import React, {FC, useContext} from 'react';
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {addCategory, editCategory} from "../../Store/Slices/SpendingsSlice";
 import cl from "./formCategory.module.css"
 import getRandomColor from "../../Helpers/getRandomColor";
 import {EditCategoryContext} from "../Category/Category";
-import refresh from '../../Resources/img/refresh.png'
+import useAppSelector from "../../Hooks/useAppSelector";
+import useAppDispatch from "../../Hooks/useAppDispatch";
+import ICategory from "../../Models/ICategory";
+const refresh = require('../../Resources/img/refresh.png');
 
-const FormCategory = ({callback}) => {
-    const [toEditCategory, setToEditCategory] = useContext(EditCategoryContext);
+interface FormCategoryProps {
+    callback?: () => void;
+}
 
-    const [color, setColor] = useState(toEditCategory?.color || getRandomColor());
-    const [category, setCategory] = useState(toEditCategory?.category || "");
-    const [spin, setSpin] = useState(false);//TODO: Сделать хук через ref?
+const FormCategory: FC<FormCategoryProps> = ({callback}) => {
+    const [toEditCategory, setToEditCategory] = useContext(EditCategoryContext) ?? [null, null];
 
-    const dispatch = useDispatch();
-    const spendings = useSelector(state => state.spendings)
+    const [color, setColor] = useState<string>(toEditCategory?.color || getRandomColor());
+    const [category, setCategory] = useState<string>(toEditCategory?.category || "");
+    const [spin, setSpin] = useState<boolean>(false);//TODO: Сделать хук через ref?
+
+    const dispatch = useAppDispatch();
+    const spendings = useAppSelector(state => state.spendings)
 
     function editCurrentCategory(){
+        if (!toEditCategory) {
+            console.error('UNEXPECTED NULL CONTEXT');
+            return;
+        }
+
         const oldCategory = toEditCategory.category;
         dispatch(editCategory({oldCategory, category, color}))
         setToEditCategory(null);
@@ -28,15 +39,18 @@ const FormCategory = ({callback}) => {
             alert("Введите название категории");
             return;
         }
-        if (spendings.find((spending) => spending.category === category)){
+        if (spendings.find((spending: ICategory) => spending.category === category)){
             alert("Такая категория уже существует");
             setCategory("");
             return;
         }
         dispatch(addCategory(
-            {category: category, color: color, summaryMoney: 0, expenses: []}
+            {category, color: color, summaryMoney: 0, expenses: []}
         ))
-        callback();
+
+        if (callback) {
+            callback();
+        }
     }
 
     function categoryChooseAction(){

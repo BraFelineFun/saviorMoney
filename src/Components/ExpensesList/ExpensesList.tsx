@@ -1,26 +1,29 @@
-import React, {useMemo, useState} from 'react';
-import {useSelector} from "react-redux";
+import React, {ChangeEvent, useMemo, useState} from 'react';
 import sortByField from "../../Helpers/sortByField";
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import getExpenseKey from "../ExpenseItem/getExpenseKey";
 import cl from './expensesList.module.css'
 import Header from "../UI Components/Header/Header";
 import Select from "../UI Components/Select/Select";
-import arrow from '../../Resources/img/arrow-expand.png';
+import useAppSelector from "../../Hooks/useAppSelector";
+import SelectItem from "../UI Components/Select/SelectItem";
+import {IExpenseWithCategory} from "../../Models/IExpenseWithCategory";
+import expenseItem from "../ExpenseItem/ExpenseItem";
 
+
+const arrow = require('../../Resources/img/arrow-expand.png');
 const ExpensesList = () => {
 
-    const spendings = useSelector(state => state.spendings);
-    const [sortField, setSortField] = useState("");
-    const [expandContainer, setExpandContainer] = useState(false);
-    const selectObject = {title: "Сортировка по", options: [
-            {value: "description", description: "По названию"},
-            {value: "money", description: "По сумме"},
-            {value: "date", description: "По дате"}
-    ]}
+    const spendings = useAppSelector(state => state.spendings);
+    const [sortField, setSortField] = useState<string>("");
+    const [expandContainer, setExpandContainer] = useState<boolean>(false);
 
-    const expenses = useMemo(() => {
-        const expList = [];
+    function onChangeSelect (e: ChangeEvent<HTMLSelectElement>) {
+        setSortField(e.target.value);
+    }
+
+    const expenses: IExpenseWithCategory[] = useMemo(() => {
+        const expList: IExpenseWithCategory[] = [];
         spendings.forEach((spending) =>
             spending.expenses.forEach((expense) => {
                 expList.push({...expense, category: spending.category, color: spending.color})
@@ -29,11 +32,10 @@ const ExpensesList = () => {
         return expList;
     }, [spendings])
 
-    const sortedExpenses = useMemo(() => {
+    const sortedExpenses: IExpenseWithCategory[] = useMemo(() => {
         //TODO: сортировка по дате
         return sortByField(sortField, expenses);
     },[expenses, sortField])
-
 
     return (
         <div className={!expandContainer? cl.expenseContainer : `${cl.expenseContainer} ${cl.containerExpended}`}>
@@ -47,7 +49,11 @@ const ExpensesList = () => {
                         />
                     </div>
                     <Header title="Список трат">
-                        <Select selectObject={selectObject} selected={sortField} setSelected={setSortField}/>
+                        <Select title='Сортировка по' value={sortField} onChange={onChangeSelect}>
+                            <SelectItem value='description'>По названию</SelectItem>
+                            <SelectItem value='money'>По сумме</SelectItem>
+                            <SelectItem value='date'>По дате</SelectItem>
+                        </Select>
                     </Header>
                 </div>
 
@@ -62,7 +68,7 @@ const ExpensesList = () => {
                                 <div>{expense.category}</div>
                             </div>
 
-                            <ExpenseItem expense={expense} category={expense.category}/>
+                            <ExpenseItem {...expense}/>
                         </div>
 
                     )}

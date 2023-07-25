@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cl from "./CardDetail.module.css";
 import {CSSTransition} from "react-transition-group";
 import ExpenseItem from "../../ExpenseItem/ExpenseItem";
 import getExpenseKey from "../../ExpenseItem/getExpenseKey";
+import ICategory from "../../../Models/ICategory";
 
+interface CardDetailProps {
+    spending: ICategory;
+    isExpandCard: boolean;
+}
 
-const CardDetail = ({spending, isExpandCard}) => {
+const CardDetail: FC<CardDetailProps> = ({spending, isExpandCard}) => {
 
     return (
+        //TODO: css transition doesnt work, Make Collapse more Reusable and use it here
         <CSSTransition
             key={spending.category}
             in={isExpandCard}
@@ -22,7 +28,7 @@ const CardDetail = ({spending, isExpandCard}) => {
                     </div>
                     :
                     spending.expenses.map((expense) =>
-                        <ExpenseItem key={getExpenseKey(expense)} expense={expense} category={spending.category}/>
+                        <ExpenseItem key={getExpenseKey(expense)} category={spending.category} {...expense}/>
                     )
                 }
             </div>

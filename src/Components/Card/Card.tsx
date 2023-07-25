@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from 'react';
+import React, {FC, useContext, useMemo, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import cl from "./card.module.css"
 import CardDetail from "./CardDetail/CardDetail";
@@ -8,20 +8,25 @@ import cashNumberToString from "../../Helpers/cashNumberToString";
 import Empty from "../UI Components/Empty/Empty";
 import {EditCategoryContext} from "../Category/Category";
 import sortByField from "../../Helpers/sortByField";
+import useAppSelector from "../../Hooks/useAppSelector";
+import ICategory from "../../Models/ICategory";
+import useAppDispatch from "../../Hooks/useAppDispatch";
+interface CardProps {
+    sortField: string;
+}
+const Card: FC<CardProps> = ({sortField}) => {
 
-const Card = ({sortField}) => {
-
-    const spendingsState = useSelector(state => state.spendings);
-    const [expandCardCategory, setExpandCardCategory] = useState([]);
-    const dispatch = useDispatch();
+    const spendingsState = useAppSelector(state => state.spendings);
+    const [expandCardCategory, setExpandCardCategory] = useState<ICategory[]>([]);
+    const dispatch = useAppDispatch();
 
     const spendings = useMemo(() =>
             sortByField(sortField, spendingsState)
         , [spendingsState, sortField]);
 
-    const [_, editCategory] = useContext(EditCategoryContext);
+    const [_, editCategory] = useContext(EditCategoryContext) ?? [null, null];
 
-    function expandCardSetter(category) {
+    function expandCardSetter(category: ICategory) {
         if (!expandCardCategory.includes(category))
             setExpandCardCategory([...expandCardCategory, category]);
         else
@@ -30,15 +35,21 @@ const Card = ({sortField}) => {
                 ))
     }
 
-    function removeCategoryContext(category) {
+    function removeCategoryContext(category: string): () => void {
         return function () {
             dispatch(removeCategory({category}))
         }
     }
 
-    function toEditCategoryContext(spending) {
+    function toEditCategoryContext(spending: ICategory): () => void {
+
         return function () {
-            editCategory({category: spending.category, color: spending.color})
+            if (editCategory) {
+                editCategory(spending);
+            }
+            else {
+                console.error('UNEXPECTED NULL CONTEXT');
+            }
         }
     }
 

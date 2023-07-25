@@ -1,32 +1,27 @@
-import React from 'react';
-import {useState} from "react";
-import useToggle from "../../Hooks/useToggle";
-import {useDispatch, useSelector} from "react-redux";
+import {ChangeEvent, FC, useState} from 'react';
 import {addExpense} from "../../Store/Slices/SpendingsSlice";
-import {CSSTransition} from "react-transition-group";
-
-import arrow from "../../Resources/img/arrow-expand.png"
 import cl from './formCategory.module.css'
 import Collapse from "../UI Components/Collapse/Collapse";
+import useAppDispatch from "../../Hooks/useAppDispatch";
+import useAppSelector from "../../Hooks/useAppSelector";
 
 
-const FormSpending = () => {
+const FormSpending: FC = () => {
 
-    const [spentSum, setSpentSum] = useState("0");
-    const [chosenCategory, setChosenCategory] = useState("");
-    const [description, setDescription] = useState("");
+    const [spentSum, setSpentSum] = useState<number>(0);
+    const [chosenCategory, setChosenCategory] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
 
-    const [expandList, toggleExpandList] = useToggle(false);
+    const spendings = useAppSelector(state => state.spendings)
+    const dispatch = useAppDispatch();
 
-    const spendings = useSelector(state => state.spendings)
-    const dispatch = useDispatch();
-
-    function checkNumberInput(value){
-        if ((/\d*/g).test(value))
-            setSpentSum(value)
+    function checkNumberInput(value: string): void {
+        if ((/\d*/g).test(value)) {
+            setSpentSum(Number(value));
+        }
     }
 
-    function addSpendings(){
+    function addSpendings(): void {
         if (chosenCategory === "") {
             alert("Выберете категорию");
             return;
@@ -40,7 +35,7 @@ const FormSpending = () => {
             return;
         }
         const spentSumNum = Number(spentSum);
-        dispatch(addExpense({spentSumNum, chosenCategory, description}))
+        dispatch(addExpense({money: spentSumNum, chosenCategory, description}))
 
     }
 
@@ -70,7 +65,7 @@ const FormSpending = () => {
                 <label htmlFor="spentSum">Введите сумму:</label>
                 <input
                     id="spentSum"
-                    onChange={(e) => checkNumberInput(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => checkNumberInput(e.target.value)}
                     value={spentSum}
                     type="number"
                 />
@@ -79,7 +74,7 @@ const FormSpending = () => {
                 <label htmlFor="description">Введите описание:</label>
                 <input
                     id="description"
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)}
                     value={description}
                     type="text"/>
             </div>

@@ -1,18 +1,8 @@
-import {createSlice} from "@reduxjs/toolkit";
-
-interface IExpense {
-    description: string,
-    money: number,
-    date: string,
-}
-
-interface ICategory {
-    category: string,
-    summaryMoney: number,
-    color: string,
-    expenses: IExpense[]
-}
-
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import ICategory from "../../Models/ICategory";
+import IExpense from "../../Models/IExpense";
+import getExpenseKey from "../../Components/ExpenseItem/getExpenseKey";
+import {IExpenseWithCategory} from "../../Models/IExpenseWithCategory";
 
 const initialState :ICategory[] = [
     {
@@ -57,25 +47,25 @@ export const spendingSlice = createSlice({
     name: 'spendings',
     initialState,
     reducers: {
-        addCategory: (state, action) => { // object in payload is expected
+        addCategory: (state, action: PayloadAction<ICategory>) => { // object in payload is expected
             state.push(action.payload)
         },
-        addExpense: (state, action) =>{
+        addExpense: (state, action: PayloadAction<IExpenseWithCategory>) =>{
             const index = state.findIndex(obj => obj.category === action.payload.chosenCategory);
-            state[index].summaryMoney += action.payload.spentSumNum;
+            state[index].summaryMoney += action.payload.money;
             state[index].expenses.push({description: action.payload.description,
-                money: action.payload.spentSumNum, date: new Date().toString()})
+                money: action.payload.money, date: new Date().toString()})
         },
-        removeCategory: (state, action) =>{
+        removeCategory: (state, action: PayloadAction<{ category: string }>) =>{
             return state.filter((spending) => spending.category !== action.payload.category)
         },
-        removeExpanse: (state, action) =>{
+        removeExpanse: (state, action:PayloadAction<{category: string, key: number}>) =>{
             const index = state.findIndex(obj => obj.category === action.payload.category);
             const expensesCopy = state[index].expenses;
             const elementToSubtract = expensesCopy.find((expense) =>
-                +(new Date(expense.date)) === action.payload.key)
+                getExpenseKey(expense) === action.payload.key)
             const filteredCopy = expensesCopy.filter((expense) =>
-                +(new Date(expense.date)) !== action.payload.key)
+                getExpenseKey(expense) !== action.payload.key)
 
             // Set list without exact expense as a new state
             state[index].expenses = filteredCopy;
@@ -97,4 +87,4 @@ export const spendingSlice = createSlice({
 
 })
 export const {addCategory, addExpense, removeCategory, removeExpanse, editCategory} = spendingSlice.actions;
-export default spendingSlice.reducer;
+export const spendingReducer = spendingSlice.reducer;

@@ -13,7 +13,7 @@ function App() {
             </div>
 
             <div className={cl.container}>
-                <PieContainer />
+                <PieContainer/>
             </div>
         </div>
     );
