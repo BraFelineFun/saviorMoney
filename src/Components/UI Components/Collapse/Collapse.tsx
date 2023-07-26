@@ -1,6 +1,6 @@
 import React, {FC, ReactElement, useState} from 'react';
 import cl from './collapse.module.css';
-import {CSSTransition} from "react-transition-group";
+import CollapseTransition from "./CollapseTransition/CollapseTransition";
 const arrow = require("../../../Resources/img/arrow-expand.png");
 
 interface CollapseProps {
@@ -25,24 +25,12 @@ const Collapse: FC<CollapseProps> = ({children}) => {
                     alt="arrow to expand list"
                 />
             </div>
-            <CSSTransition
-                in={isExpanded}
-                timeout={500}
-                unmountOnExit
-                classNames={{
-                    enter: cl['expandList-enter'],
-                    enterActive: cl['expandList-enter-active'],
-                    exit: cl['expandList-exit'],
-                    exitActive: cl['expandList-exit-active']
-                }}
-            >
-                <div className={cl.expandList}>
-                    <div className={cl.expandBody}>
-                        <hr/>
-                        {children}
-                    </div>
-                </div>
-            </CSSTransition>
+            <CollapseTransition isExpanded={isExpanded}>
+                <>
+                    <hr/>
+                    {children}
+                </>
+            </CollapseTransition>
         </div>
     );
 };

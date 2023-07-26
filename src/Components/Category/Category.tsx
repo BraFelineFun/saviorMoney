@@ -1,6 +1,6 @@
 import React, {ChangeEvent, createContext, Dispatch, FC, SetStateAction, useState} from 'react';
 import './category.css'
-import Card from "../Card/Card";
+import Card from "../CategoryCards/CategoryCards";
 import FormCategory from "../FormAdd/FormCategory";
 import useToggle from "../../Hooks/useToggle";
 import SwitchComponents from "../UI Components/SwitchComponents/SwitchComponents";

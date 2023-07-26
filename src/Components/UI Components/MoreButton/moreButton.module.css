@@ -1,4 +1,7 @@
 .moreButton{
+    background-color: inherit;
+    border: none;
+    padding: 0;
     position: relative;
     width: 100%;
     min-width: 24px;

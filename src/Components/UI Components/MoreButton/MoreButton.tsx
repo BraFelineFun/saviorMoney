@@ -11,6 +11,7 @@ interface MoreButtonProps {
 }
 
 const MoreButton: FC<MoreButtonProps> = ({removeCallback, editCallback}) => {
+    //TODO: Redisign so it can accept <MenuItems> with callbacks in parent's component
 
     const [isMenu, setIsMenu] = useState(false);
     const menuButtonRef = useRef<HTMLDivElement>(null);
@@ -31,6 +32,7 @@ const MoreButton: FC<MoreButtonProps> = ({removeCallback, editCallback}) => {
     }, [menuButtonRef])
 
     function toggleMenu(e: React.MouseEvent<HTMLDivElement>) {
+        e.stopPropagation();
         assertIsNode(e.target);
         setIsMenu(!isMenu);
     }
@@ -47,7 +49,7 @@ const MoreButton: FC<MoreButtonProps> = ({removeCallback, editCallback}) => {
 
 
     return (
-        <div className={cl.moreButton}>
+        <button className={cl.moreButton}>
             <div onClick={toggleMenu}
                  className={cl.circleGroup}
                  ref={menuButtonRef}
@@ -79,7 +81,7 @@ const MoreButton: FC<MoreButtonProps> = ({removeCallback, editCallback}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </button>
     );
 };
 
