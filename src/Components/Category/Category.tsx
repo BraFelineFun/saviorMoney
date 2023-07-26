@@ -1,14 +1,14 @@
-import React, {ChangeEvent, Context, createContext, Dispatch, FC, SetStateAction, useState} from 'react';
+import React, {ChangeEvent, createContext, Dispatch, FC, SetStateAction, useState} from 'react';
 import './category.css'
 import Card from "../Card/Card";
 import FormCategory from "../FormAdd/FormCategory";
 import useToggle from "../../Hooks/useToggle";
 import SwitchComponents from "../UI Components/SwitchComponents/SwitchComponents";
 import Header from "../UI Components/Header/Header";
-import Select, {SelectValueType} from "../UI Components/Select/Select";
+import Select from "../UI Components/Select/Select";
 import SelectItem from "../UI Components/Select/SelectItem";
 import ICategory from "../../Models/ICategory";
-import {editCategory} from "../../Store/Slices/SpendingsSlice";
+import SwitchHeader from "../UI Components/SwitchComponents/SwitchHeader";
 
 export type categoryContextValueType = [ICategory | null, Dispatch<SetStateAction<ICategory | null>>] | null
 export const EditCategoryContext = createContext<categoryContextValueType>(null);
@@ -47,12 +47,17 @@ const Category: FC = () => {
             <EditCategoryContext.Provider value={[editCategory, setEditCategory]}>
                 <main className="wrapperPadding category_main">
                     <SwitchComponents
-                        switchTitle={editCategory ? "Изменить категорию" : "Добавить категорию"}
                         switchKey={isShowForm || editCategory !== null}
-                        setSwitchKey={toggleFormSetDefault}
                         SwitchComponent={<Card sortField={sortField}/>}
-                        SwitchedComponent={<FormCategory callback={toggleFormSetDefault}/>}
-                    />
+                        SwitchedComponent={<FormCategory onAdded={toggleFormSetDefault}/>}
+                    >
+                        <SwitchHeader
+                            onSwitch={toggleFormSetDefault}
+                            isSwitched={isShowForm || editCategory !== null}
+                        >
+                            {editCategory ? "Изменить категорию" : "Добавить категорию"}
+                        </SwitchHeader>
+                    </SwitchComponents>
                 </main>
             </EditCategoryContext.Provider>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import SwitchComponents from "../UI Components/SwitchComponents/SwitchComponents";
 import Pie from "./Pie";
 import FormSpending from "../FormAdd/FormSpending";
@@ -6,25 +6,29 @@ import useToggle from "../../Hooks/useToggle";
 import Header from "../UI Components/Header/Header";
 import cl from './Pie.module.css'
 import ExpensesList from "../ExpensesList/ExpensesList";
+import SwitchHeader from "../UI Components/SwitchComponents/SwitchHeader";
 
-const PieContainer = () => {
+const PieContainer: FC = () => {
 
     const [isToggled, toggle] = useToggle(false);
 
     return (
         <div>
-            <Header title={"Главная"}>
-                {/*//TODO: сортировка по дате?*/}
-            </Header>
+            <Header title={"Главная"}></Header>
             <main className={cl.main_container}>
                 <div className="wrapperPadding">
                     <SwitchComponents
-                        switchTitle={"Добавить трату"}
                         switchKey={isToggled}
-                        setSwitchKey={toggle}
                         SwitchComponent={<Pie/>}
                         SwitchedComponent={<FormSpending/>}
-                    />
+                    >
+                        <SwitchHeader
+                            isSwitched={isToggled}
+                            onSwitch={toggle}
+                        >
+                            Добавить трату
+                        </SwitchHeader>
+                    </SwitchComponents>
                 </div>
                 {!isToggled && <ExpensesList/>}
             </main>

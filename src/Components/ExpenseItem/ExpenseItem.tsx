@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import dateToString from "../../Helpers/dateToString";
+import dateStringToDateAndTime from "../../Helpers/dateStringToDateAndTime";
 import cl from "./expenseItem.module.css"
 import cashNumberToString from "../../Helpers/cashNumberToString";
 import {removeExpanse} from "../../Store/Slices/SpendingsSlice";
@@ -13,7 +13,7 @@ const deleteImg = require("../../Resources/img/delete.png");
 const ExpenseItem: FC<IExpenseWithCategory> = ({category, ...expense}) => {
 
     const dispatch = useAppDispatch();
-    const {date, time} = dateToString(expense.date);
+    const {date, time} = dateStringToDateAndTime(expense.date);
     const key = getExpenseKey(expense);
 
     function deleteExpense(category: string, key: number): void {

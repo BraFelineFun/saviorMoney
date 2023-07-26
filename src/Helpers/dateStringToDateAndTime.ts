@@ -1,4 +1,4 @@
-interface DateTimeStrings {
+interface DateAndTime {
     date: string;
     time: string;
 }
@@ -20,8 +20,7 @@ const timeToTimeString = (date: Date) : string => {
     return [addNull(date.getHours()), addNull(date.getMinutes()), addNull(date.getSeconds())].join(":")
 }
 
-const dateToString = (date) : DateTimeStrings => {
-    if (date === undefined || date === "") return {date: '', time: ''};
+const dateStringToDateAndTime = (date: string) : DateAndTime => {
 
     const objDate = new Date(date);
     return {
@@ -31,4 +30,4 @@ const dateToString = (date) : DateTimeStrings => {
 }
 
 
-export default dateToString;
+export default dateStringToDateAndTime;

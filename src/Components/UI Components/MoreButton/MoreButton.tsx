@@ -1,39 +1,46 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {FC,  useEffect, useRef, useState} from 'react';
 import cl from "./moreButton.module.css"
-import editImg from "../../../Resources/img/edit.png"
-import deleteImg from "../../../Resources/img/delete.png"
+import assertIsNode from '../../../Helpers/assertEventTargetToNode';
 
-const MoreButton = ({removeCallback, editCallback}) => {
+const editImg = require("../../../Resources/img/edit.png");
+const deleteImg = require("../../../Resources/img/delete.png");
+
+interface MoreButtonProps {
+    removeCallback: () => void;
+    editCallback: () => void;
+}
+
+const MoreButton: FC<MoreButtonProps> = ({removeCallback, editCallback}) => {
 
     const [isMenu, setIsMenu] = useState(false);
-    const menuButtonRef = useRef(null);
+    const menuButtonRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // Close menu if click event happened, but in callbacks this behavior is prevented
 
-        const closeMenu = () => setIsMenu(false);
+        const closeMenu = (e: MouseEvent): void => {
+            assertIsNode(e.target);
+            if (!menuButtonRef?.current?.contains(e.target)) {
+                setIsMenu(false);
+            }
+        }
         document.addEventListener('click', closeMenu)
         return () => {
             document.removeEventListener('click', closeMenu)
         }
-    }, [])
+    }, [menuButtonRef])
 
-    function toggleMenu(e) {
-        // TODO: только одно меню должно быть открыто
-        if (!menuButtonRef.current.contains(e.target)) {
-            return;
-        }
-        console.log('afs')
-        e.stopPropagation();
+    function toggleMenu(e: React.MouseEvent<HTMLDivElement>) {
+        assertIsNode(e.target);
         setIsMenu(!isMenu);
     }
 
-    function remove(e) {
+    function remove(e: React.MouseEvent<HTMLDivElement>) {
         e.stopPropagation();
         removeCallback()
     }
 
-    function edit(e) {
+    function edit(e: React.MouseEvent<HTMLDivElement>) {
         e.stopPropagation();
         editCallback();
     }
@@ -50,8 +57,9 @@ const MoreButton = ({removeCallback, editCallback}) => {
                 <span className={isMenu ? [cl.circle, cl.activeMenuCircle].join(" ") : cl.circle}></span>
             </div>
             <div className={isMenu ? [cl.dropDownMenu, cl.activeMenu].join(" ") : cl.dropDownMenu}>
-                <div onClick={remove}
-                     className={cl.menuItem}
+                <div
+                    onClick={remove}
+                    className={cl.menuItem}
                 >
                     <div className={cl.menuItem_icon}>
                         <img src={deleteImg} alt="delete category"/>

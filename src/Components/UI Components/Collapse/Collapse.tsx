@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
+import React, {FC, ReactElement, useState} from 'react';
 import cl from './collapse.module.css';
-import arrow from "../../../Resources/img/arrow-expand.png";
 import {CSSTransition} from "react-transition-group";
+const arrow = require("../../../Resources/img/arrow-expand.png");
 
-const Collapse = ({children}) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+interface CollapseProps {
+    children?: ReactElement;
+}
+
+const Collapse: FC<CollapseProps> = ({children}) => {
+
+    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
     const toggleExpandList = () => setIsExpanded(isExpanded => !isExpanded);
 
     return (
@@ -26,7 +32,6 @@ const Collapse = ({children}) => {
                 classNames={{
                     enter: cl['expandList-enter'],
                     enterActive: cl['expandList-enter-active'],
-                    enterDone: cl['.expandList-enter-done'],
                     exit: cl['expandList-exit'],
                     exitActive: cl['expandList-exit-active']
                 }}

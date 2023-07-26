@@ -1,7 +1,12 @@
-import React from 'react';
-import emptyImg from './../../../Resources/img/empty.png'
+import React, {FC} from 'react';
 import cl from './empty.module.css'
-const Empty = ({emptyText}) => {
+const emptyImg = require('./../../../Resources/img/empty.png');
+
+interface EmptyProps {
+    emptyText: string;
+}
+
+const Empty: FC<EmptyProps> = ({emptyText}) => {
     return (
         <div className={cl.emptyBody}>
             <img src={emptyImg} alt="empty"/>

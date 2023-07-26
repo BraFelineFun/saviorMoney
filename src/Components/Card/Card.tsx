@@ -1,5 +1,4 @@
 import React, {FC, useContext, useMemo, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import cl from "./card.module.css"
 import CardDetail from "./CardDetail/CardDetail";
 import MoreButton from "../UI Components/MoreButton/MoreButton";
@@ -11,9 +10,11 @@ import sortByField from "../../Helpers/sortByField";
 import useAppSelector from "../../Hooks/useAppSelector";
 import ICategory from "../../Models/ICategory";
 import useAppDispatch from "../../Hooks/useAppDispatch";
+
 interface CardProps {
     sortField: string;
 }
+
 const Card: FC<CardProps> = ({sortField}) => {
 
     const spendingsState = useAppSelector(state => state.spendings);
@@ -27,15 +28,18 @@ const Card: FC<CardProps> = ({sortField}) => {
     const [_, editCategory] = useContext(EditCategoryContext) ?? [null, null];
 
     function expandCardSetter(category: ICategory) {
-        if (!expandCardCategory.includes(category))
+        if (!expandCardCategory.includes(category)) {
             setExpandCardCategory([...expandCardCategory, category]);
-        else
+        }
+        else {
             setExpandCardCategory((prev) =>
                 prev.filter((thisCategory) => category !== thisCategory
                 ))
+        }
     }
 
     function removeCategoryContext(category: string): () => void {
+
         return function () {
             dispatch(removeCategory({category}))
         }
@@ -68,13 +72,13 @@ const Card: FC<CardProps> = ({sortField}) => {
 
                     return (
                         <div
-                            onClick={() => expandCardSetter(spending.category)}
                             key={spending.category}
                             style={color}
                             className={cl.cardSpending + " wrapperPadding"}
                         >
                             <div className={cl.card_main}>
                                 <div
+                                    onClick={() => expandCardSetter(spending.category)}
                                     className={isIncluded ?
                                         [cl.card_properties, cl.expendedCard].join(" ") :
                                         cl.card_properties}

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {FC, ReactElement} from 'react';
 import cl from './header.module.css'
 
-const Header = ({title, children}) => {
+interface HeaderProps {
+    title: string;
+    children?: ReactElement;
+}
+
+const Header: FC<HeaderProps> = ({title, children}) => {
     return (
 
         <div className={[cl.headWrapper, "wrapperPadding"].join(" ")}>

@@ -1,12 +1,17 @@
-import React, {useState} from 'react';
+import React, {FC, Key, useState} from 'react';
 import cl from './RoundButton.module.css'
 import {CSSTransition, SwitchTransition} from "react-transition-group";
-const RoundButton = ({callback}) => {
+
+interface RoundButtonProps {
+    callback: () => void;
+}
+
+const RoundButton: FC<RoundButtonProps> = ({callback}) => {
     const [state, setState] = useState(false);
     return (
         <SwitchTransition>
             <CSSTransition
-                key={state}
+                key={state? 1: 0}
                 classNames={{
                     enter: cl['expandWidth-enter'],
                     enterActive: cl['expandWidth-enter-active'],

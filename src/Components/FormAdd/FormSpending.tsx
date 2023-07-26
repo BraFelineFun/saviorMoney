@@ -34,8 +34,9 @@ const FormSpending: FC = () => {
             alert("Введите описание");
             return;
         }
+        console.log('')
         const spentSumNum = Number(spentSum);
-        dispatch(addExpense({money: spentSumNum, chosenCategory, description}))
+        dispatch(addExpense({money: spentSumNum, date: '', category: chosenCategory, description}))
 
     }
 

@@ -10,14 +10,14 @@ import ICategory from "../../Models/ICategory";
 const refresh = require('../../Resources/img/refresh.png');
 
 interface FormCategoryProps {
-    callback?: () => void;
+    onAdded?: () => void;
 }
 
-const FormCategory: FC<FormCategoryProps> = ({callback}) => {
+const FormCategory: FC<FormCategoryProps> = ({onAdded}) => {
     const [toEditCategory, setToEditCategory] = useContext(EditCategoryContext) ?? [null, null];
 
     const [color, setColor] = useState<string>(toEditCategory?.color || getRandomColor());
-    const [category, setCategory] = useState<string>(toEditCategory?.category || "");
+    const [newCategoryName, setNewCategoryName] = useState<string>(toEditCategory?.category || "");
     const [spin, setSpin] = useState<boolean>(false);//TODO: Сделать хук через ref?
 
     const dispatch = useAppDispatch();
@@ -29,27 +29,31 @@ const FormCategory: FC<FormCategoryProps> = ({callback}) => {
             return;
         }
 
-        const oldCategory = toEditCategory.category;
-        dispatch(editCategory({oldCategory, category, color}))
+        const oldCategoryName: string = toEditCategory.category;
+        dispatch(editCategory({oldCategoryName, newCategory:{...toEditCategory, category: newCategoryName, color}}))
         setToEditCategory(null);
+
+        if (onAdded) {
+            onAdded();
+        }
     }
 
     function addNewCategory(){
-        if (category === "") {
+        if (newCategoryName === "") {
             alert("Введите название категории");
             return;
         }
-        if (spendings.find((spending: ICategory) => spending.category === category)){
+        if (spendings.find((spending: ICategory) => spending.category === newCategoryName)){
             alert("Такая категория уже существует");
-            setCategory("");
+            setNewCategoryName("");
             return;
         }
         dispatch(addCategory(
-            {category, color: color, summaryMoney: 0, expenses: []}
+            {category: newCategoryName, color: color, summaryMoney: 0, expenses: []}
         ))
 
-        if (callback) {
-            callback();
+        if (onAdded) {
+            onAdded();
         }
     }
 
@@ -66,8 +70,8 @@ const FormCategory: FC<FormCategoryProps> = ({callback}) => {
                 <label htmlFor="category">Введите категорию трат:</label>
                 <input
                     id="category"
-                    onChange={(e) => setCategory(e.target.value)}
-                    value={category}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    value={newCategoryName}
                     type="text"/>
             </div>
             <div className={cl.inputField}>

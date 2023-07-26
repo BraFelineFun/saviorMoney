@@ -8,7 +8,6 @@ import Select from "../UI Components/Select/Select";
 import useAppSelector from "../../Hooks/useAppSelector";
 import SelectItem from "../UI Components/Select/SelectItem";
 import {IExpenseWithCategory} from "../../Models/IExpenseWithCategory";
-import expenseItem from "../ExpenseItem/ExpenseItem";
 
 
 const arrow = require('../../Resources/img/arrow-expand.png');
