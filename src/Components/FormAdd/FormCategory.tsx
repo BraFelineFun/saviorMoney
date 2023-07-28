@@ -18,7 +18,7 @@ const FormCategory: FC<FormCategoryProps> = ({onAdded}) => {
 
     const [color, setColor] = useState<string>(toEditCategory?.color || getRandomColor());
     const [newCategoryName, setNewCategoryName] = useState<string>(toEditCategory?.category || "");
-    const [spin, setSpin] = useState<boolean>(false);//TODO: Сделать хук через ref?
+    const [spin, setSpin] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
     const spendings = useAppSelector(state => state.spendings)

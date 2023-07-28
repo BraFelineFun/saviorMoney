@@ -43,7 +43,7 @@ const FormSpending: FC = () => {
 
     return (
         <div className={cl.form + " wrapperPadding"}>
-            <Collapse>
+            <Collapse title='Категории:'>
                 <div className={cl.categoryListContent}>
                     {
                         spendings.map(({category}) =>

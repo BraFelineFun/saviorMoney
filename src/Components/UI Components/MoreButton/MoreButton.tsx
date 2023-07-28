@@ -32,7 +32,6 @@ const MoreButton: FC<MoreButtonProps> = ({removeCallback, editCallback}) => {
     }, [menuButtonRef])
 
     function toggleMenu(e: React.MouseEvent<HTMLDivElement>) {
-        e.stopPropagation();
         assertIsNode(e.target);
         setIsMenu(!isMenu);
     }

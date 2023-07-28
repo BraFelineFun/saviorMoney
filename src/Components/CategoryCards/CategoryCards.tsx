@@ -17,8 +17,6 @@ const CategoryCards: FC<CardProps> = ({sortField}) => {
         sortByField(sortField, spendingsState)
     , [spendingsState, sortField]);
 
-
-
     return (
         <>
             {!spendings.length ?
@@ -28,7 +26,7 @@ const CategoryCards: FC<CardProps> = ({sortField}) => {
 
                 :
                 spendings.map((spending) => (
-                    <CategoryCard spending={spending}/>
+                    <CategoryCard key={spending.category} spending={spending}/>
                 ))
             }
         </>
