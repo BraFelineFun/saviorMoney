@@ -6,8 +6,12 @@ import CardDetail from "../CategoryCardDetail/CategoryCardDetail";
 import {removeCategory} from "../../Store/Slices/SpendingsSlice";
 import ICategory from "../../Models/ICategory";
 import useAppDispatch from "../../Hooks/useAppDispatch";
-import {EditCategoryContext} from "../Category/Category";
+import {EditCategoryContext, ICategoryContextValueType} from "../Category/Category";
 import useToggle from "../../Hooks/useToggle";
+import MenuItem from "../UI Components/MenuItem/MenuItem";
+import MenuList from "../UI Components/MenuList/MenuList";
+const editImg = require("../../Resources/img/edit.png");
+const deleteImg = require("../../Resources/img/delete.png");
 
 interface CategoryCardProps {
     spending: ICategory;
@@ -17,23 +21,17 @@ const CategoryCard: FC<CategoryCardProps> = ({spending}) => {
     let color = {backgroundColor: spending.color};
     const [isExpanded, toggleIsExpanded] = useToggle(false);
     const dispatch = useAppDispatch();
-    const [_, editCategory] = useContext(EditCategoryContext) ?? [null, null];
+    const [_, editCategory] = useContext<ICategoryContextValueType>(EditCategoryContext) ?? [null, null];
 
-    function removeCategoryContext(category: string): () => void {
-
-        return function () {
-            dispatch(removeCategory({category}))
-        }
+    function removeCategoryCallback(): void {
+        dispatch(removeCategory({category: spending.category}))
     }
 
-    function toEditCategoryContext(spending: ICategory): () => void {
-
-        return function () {
-            if (editCategory) {
-                editCategory(spending);
-            } else {
-                console.error('UNEXPECTED NULL CONTEXT');
-            }
+    function editCategoryCallback(): void {
+        if (editCategory) {
+            editCategory(spending);
+        } else {
+            console.error('UNEXPECTED NULL CONTEXT');
         }
     }
 
@@ -65,10 +63,16 @@ const CategoryCard: FC<CategoryCardProps> = ({spending}) => {
                     </div>
                 </div>
                 <div className={cl.card_more}>
-                    <MoreButton
-                        editCallback={toEditCategoryContext(spending)}
-                        removeCallback={removeCategoryContext(spending.category)}
-                    />
+                    <MoreButton>
+                        <MenuList>
+                            <MenuItem onClick={editCategoryCallback} image={editImg} alt='edit category'>
+                                Редактировать
+                            </MenuItem>
+                            <MenuItem onClick={removeCategoryCallback} image={deleteImg} alt='delete category'>
+                                Удалить
+                            </MenuItem>
+                        </MenuList>
+                    </MoreButton>
                 </div>
             </div>
             <CardDetail

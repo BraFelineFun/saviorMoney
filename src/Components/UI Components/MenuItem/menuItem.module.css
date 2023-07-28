@@ -1,0 +1,26 @@
+.defaultImg {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.menuItem {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 5px 0;
+    border-bottom: 2px solid #e0e0e0;
+}
+.menuItem_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menuItem_icon img{
+    height: 20px;
+    width: 20px;
+}
+.menuItem:hover{
+    background-color: #e0e0e0;
+}

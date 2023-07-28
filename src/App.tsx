@@ -5,7 +5,7 @@ import PieContainer from "./Components/Pie/PieContainer";
 
 function App() {
 
-    // TODO: change models: add id to both expenses and categories
+    // TODO: change models: add id to both expenses and categories; represent Date field as Date
 
 
     return (

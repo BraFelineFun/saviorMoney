@@ -32,7 +32,6 @@ const ExpensesList = () => {
     }, [spendings])
 
     const sortedExpenses: IExpenseWithCategory[] = useMemo(() => {
-        //TODO: сортировка по дате
         if (sortField === 'date')
             return sortByField(sortField, expenses, 'Date');
         else

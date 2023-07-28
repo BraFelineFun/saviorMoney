@@ -10,8 +10,8 @@ import SelectItem from "../UI Components/Select/SelectItem";
 import ICategory from "../../Models/ICategory";
 import SwitchHeader from "../UI Components/SwitchComponents/SwitchHeader";
 
-export type categoryContextValueType = [ICategory | null, Dispatch<SetStateAction<ICategory | null>>] | null
-export const EditCategoryContext = createContext<categoryContextValueType>(null);
+export type ICategoryContextValueType = [ICategory | null, Dispatch<SetStateAction<ICategory | null>>] | null
+export const EditCategoryContext = createContext<ICategoryContextValueType>(null);
 
 const Category: FC = () => {
 
