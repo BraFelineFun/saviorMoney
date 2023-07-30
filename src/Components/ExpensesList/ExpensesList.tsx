@@ -25,7 +25,7 @@ const ExpensesList = () => {
         const expList: IExpenseWithCategory[] = [];
         spendings.forEach((spending) =>
             spending.expenses.forEach((expense) => {
-                expList.push({...expense, category: spending.category, color: spending.color})
+                expList.push({...expense, categoryName: spending.name, color: spending.color})
             })
         )
         return expList;
@@ -66,7 +66,7 @@ const ExpensesList = () => {
                         <div key={getExpenseKey(expense)}>
                             <div className={cl.expenseCategoryMarker}>
                                 <div style={{backgroundColor: expense.color}} className={cl.expenseColor}></div>
-                                <div>{expense.category}</div>
+                                <div>{expense.categoryName}</div>
                             </div>
 
                             <ExpenseItem {...expense}/>

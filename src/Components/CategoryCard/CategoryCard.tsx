@@ -24,7 +24,7 @@ const CategoryCard: FC<CategoryCardProps> = ({spending}) => {
     const [_, editCategory] = useContext<ICategoryContextValueType>(EditCategoryContext) ?? [null, null];
 
     function removeCategoryCallback(): void {
-        dispatch(removeCategory({category: spending.category}))
+        dispatch(removeCategory({category: spending.name}))
     }
 
     function editCategoryCallback(): void {
@@ -38,7 +38,7 @@ const CategoryCard: FC<CategoryCardProps> = ({spending}) => {
 
     return (
         <div
-            key={spending.category}
+            key={spending.name}
             style={color}
             className={cl.cardSpending + " wrapperPadding"}
         >
@@ -51,7 +51,7 @@ const CategoryCard: FC<CategoryCardProps> = ({spending}) => {
                 >
 
                     <div className={cl.card_name}>
-                        {spending.category}
+                        {spending.name}
                     </div>
                     <div className={cl.card_spentSum}>
                         <b>

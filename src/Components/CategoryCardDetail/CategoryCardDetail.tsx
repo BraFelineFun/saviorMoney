@@ -21,7 +21,7 @@ const CategoryCardDetail: FC<CardDetailProps> = ({spending, isExpandCard}) => {
                     </div>
                     :
                     spending.expenses.map((expense) =>
-                        <ExpenseItem key={getExpenseKey(expense)} category={spending.category} {...expense}/>
+                        <ExpenseItem key={getExpenseKey(expense)} categoryName={spending.name} {...expense}/>
                     )
                 }
             </div>

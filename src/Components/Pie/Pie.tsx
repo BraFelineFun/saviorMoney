@@ -12,7 +12,7 @@ interface IPieSvgStyle {
 }
 
 
-const Pie = React.memo(() => {
+const Pie = () => {
 
     const [hoveredValue, setHoveredValue] = useState<ICategory | null>(null);
     const spendings = useAppSelector(state => state.spendings);
@@ -76,7 +76,7 @@ const Pie = React.memo(() => {
                         {
                             spendings.map((spending: ICategory, index: number) =>
                                 <circle
-                                    key={spending.category}
+                                    key={spending.name}
                                     style={styles[index]}
                                     className={cl.unit}
                                     r="15.9"
@@ -92,6 +92,6 @@ const Pie = React.memo(() => {
             }
         </div>
     );
-});
+};
 
-export default Pie;
+export default React.memo(Pie);

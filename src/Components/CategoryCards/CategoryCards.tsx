@@ -26,7 +26,7 @@ const CategoryCards: FC<CardProps> = ({sortField}) => {
 
                 :
                 spendings.map((spending) => (
-                    <CategoryCard key={spending.category} spending={spending}/>
+                    <CategoryCard key={spending.name} spending={spending}/>
                 ))
             }
         </>
