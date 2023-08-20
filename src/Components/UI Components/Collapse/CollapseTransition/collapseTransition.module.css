@@ -1,0 +1,26 @@
+.expandList {
+    display: grid;
+    transition: grid-template-rows 0.5s ease-out;
+}
+
+.expandBody {
+    overflow: hidden;
+}
+
+
+/*EXPAND CSS TRANSITION*/
+.expandList-enter {
+    grid-template-rows: 0fr;
+}
+.expandList-enter-active {
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.5s ease-out;
+}
+
+.expandList-exit {
+    grid-template-rows: 1fr;
+}
+
+.expandList-exit-active {
+    grid-template-rows: 0fr;
+}

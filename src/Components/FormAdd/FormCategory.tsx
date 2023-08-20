@@ -17,8 +17,8 @@ const FormCategory: FC<FormCategoryProps> = ({onAdded}) => {
     const [toEditCategory, setToEditCategory] = useContext(EditCategoryContext) ?? [null, null];
 
     const [color, setColor] = useState<string>(toEditCategory?.color || getRandomColor());
-    const [newCategoryName, setNewCategoryName] = useState<string>(toEditCategory?.category || "");
-    const [spin, setSpin] = useState<boolean>(false);//TODO: Сделать хук через ref?
+    const [newCategoryName, setNewCategoryName] = useState<string>(toEditCategory?.name || "");
+    const [spin, setSpin] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
     const spendings = useAppSelector(state => state.spendings)
@@ -29,8 +29,8 @@ const FormCategory: FC<FormCategoryProps> = ({onAdded}) => {
             return;
         }
 
-        const oldCategoryName: string = toEditCategory.category;
-        dispatch(editCategory({oldCategoryName, newCategory:{...toEditCategory, category: newCategoryName, color}}))
+        const oldCategoryName: string = toEditCategory.name;
+        dispatch(editCategory({oldCategoryName, newCategory:{...toEditCategory, name: newCategoryName, color}}))
         setToEditCategory(null);
 
         if (onAdded) {
@@ -43,13 +43,13 @@ const FormCategory: FC<FormCategoryProps> = ({onAdded}) => {
             alert("Введите название категории");
             return;
         }
-        if (spendings.find((spending: ICategory) => spending.category === newCategoryName)){
+        if (spendings.find((spending: ICategory) => spending.name === newCategoryName)){
             alert("Такая категория уже существует");
             setNewCategoryName("");
             return;
         }
         dispatch(addCategory(
-            {category: newCategoryName, color: color, summaryMoney: 0, expenses: []}
+            {name: newCategoryName, color: color, summaryMoney: 0, expenses: []}
         ))
 
         if (onAdded) {

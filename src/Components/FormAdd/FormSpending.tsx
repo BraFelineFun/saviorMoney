@@ -34,28 +34,26 @@ const FormSpending: FC = () => {
             alert("Введите описание");
             return;
         }
-        console.log('')
-        const spentSumNum = Number(spentSum);
-        dispatch(addExpense({money: spentSumNum, date: '', category: chosenCategory, description}))
 
+        const spentSumNum = Number(spentSum);
+        dispatch(addExpense({money: spentSumNum, date: '', categoryName: chosenCategory, description}))
     }
 
 
     return (
         <div className={cl.form + " wrapperPadding"}>
-            <Collapse>
+            <Collapse title='Категории:'>
                 <div className={cl.categoryListContent}>
                     {
-                        spendings.map(({category}) =>
-                            //TODO: добавить маркер цвета
+                        spendings.map(({name}) =>
                             <div
-                                className={category === chosenCategory?
+                                className={name === chosenCategory?
                                     [cl.categoryItem, cl.__chosenCategory].join(" ")
                                     : cl.categoryItem}
-                                onClick={() => setChosenCategory(category)}
-                                key={category}
+                                onClick={() => setChosenCategory(name)}
+                                key={name}
                             >
-                                {category}
+                                {name}
                             </div>
                         )
                     }

@@ -10,7 +10,7 @@ import {IExpenseWithCategory} from "../../Models/IExpenseWithCategory";
 const deleteImg = require("../../Resources/img/delete.png");
 
 
-const ExpenseItem: FC<IExpenseWithCategory> = ({category, ...expense}) => {
+const ExpenseItem: FC<IExpenseWithCategory> = ({categoryName, ...expense}) => {
 
     const dispatch = useAppDispatch();
     const {date, time} = dateStringToDateAndTime(expense.date);
@@ -40,7 +40,7 @@ const ExpenseItem: FC<IExpenseWithCategory> = ({category, ...expense}) => {
                         </b>
                     </div>
                 </div>
-                <div onClick={() => deleteExpense(category, key)}
+                <div onClick={() => deleteExpense(categoryName, key)}
                      className={cl.removeItem}
                 >
                     <img src={deleteImg} alt="delete item"/>

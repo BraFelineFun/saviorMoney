@@ -5,7 +5,7 @@ import {IExpenseWithCategory} from "../../Models/IExpenseWithCategory";
 
 const initialState :ICategory[] = [
     {
-        category: "products",
+        name: "products",
         summaryMoney: 30,
         color: "#ff3c3c",
         expenses:[
@@ -14,7 +14,7 @@ const initialState :ICategory[] = [
         ]
     },
     {
-        category: "movies",
+        name: "movies",
         summaryMoney: 30,
         color: "#3cd2ff",
         expenses:[
@@ -23,7 +23,7 @@ const initialState :ICategory[] = [
         ]
     },
     {
-        category: "fastFood",
+        name: "fastFood",
         summaryMoney: 30,
         color: "#ff3cbb",
         expenses:[
@@ -32,7 +32,7 @@ const initialState :ICategory[] = [
         ]
     },
     {
-        category: "transport",
+        name: "transport",
         summaryMoney: 30,
         color: "#84ff3c",
         expenses:[
@@ -50,16 +50,16 @@ export const spendingSlice = createSlice({
             state.push(action.payload)
         },
         addExpense: (state, action: PayloadAction<IExpenseWithCategory>) =>{
-            const index = state.findIndex(obj => obj.category === action.payload.category);
+            const index = state.findIndex(obj => obj.name === action.payload.categoryName);
             state[index].summaryMoney += action.payload.money;
             state[index].expenses.push({description: action.payload.description,
                 money: action.payload.money, date: new Date().toString()})
         },
         removeCategory: (state, action: PayloadAction<{ category: string }>) =>{
-            return state.filter((spending) => spending.category !== action.payload.category)
+            return state.filter((spending) => spending.name !== action.payload.category)
         },
         removeExpanse: (state, action:PayloadAction<{category: string, key: number}>) =>{
-            const index = state.findIndex(obj => obj.category === action.payload.category);
+            const index = state.findIndex(obj => obj.name === action.payload.category);
             const expensesCopy = state[index].expenses;
             const elementToSubtract = expensesCopy.find((expense) =>
                 getExpenseKey(expense) === action.payload.key)
@@ -81,7 +81,7 @@ export const spendingSlice = createSlice({
         editCategory: (state, action: PayloadAction<{oldCategoryName: string, newCategory: ICategory}>) => {
             console.log(action.payload)
             //search element in state by old category's name
-            const index = state.findIndex(obj => obj.category === action.payload.oldCategoryName);
+            const index = state.findIndex(obj => obj.name === action.payload.oldCategoryName);
             state[index] = action.payload.newCategory;
             return state;
         }
