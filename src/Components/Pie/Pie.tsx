@@ -68,7 +68,7 @@ const Pie = () => {
         <div className={cl.svg_container}>
             {drawEmpty() ||        //Drawing or empty Component or Pie
                 <>
-                    <PieLabel {...hoveredValue}/>
+                    <PieLabel category={hoveredValue?.name} summaryMoney={hoveredValue?.summaryMoney}/>
                     <svg
                         className={cl.chart}
                         viewBox="0 0 39 39"
